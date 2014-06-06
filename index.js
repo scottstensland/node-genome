@@ -1,22 +1,32 @@
 
-var genome = function (spec, my) {
-	
-	var that = {};
 
-	my = my || {};
+// var genome = require('./genome').genome({name : "Corindea"});
+var genome_obj = require('./genome');
 
-	var get_name = function () {
+// var genome_obj = require('./genome');
 
-		return spec.name;
-	};
-	that.get_name = get_name;
 
-	var says = function () {
+// module.exports = genome;
+// module.exports = genome.get_name;
 
-		return spec.saying || "Wiers";
-	};
-	that.says = says;
+module.exports = {
 
-	return that;
+	entry_point : function(spec, my) {
+
+		console.log("inside entry_point");
+
+		// var local_genome = genome_obj.genome(spec, my);
+		var local_genome = genome_obj.genome(spec, my);
+
+		// genome.genome({name : "Corindeee"});
+
+		console.log(local_genome.get_name());
+
+
+	},
+
+	trailing_stub : function() {
+
+		console.log("chia");
+	}
 };
-
