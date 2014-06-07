@@ -28,11 +28,14 @@ console.log("here is genome in action : ", hello_corinde());
 ## Release History
 
 * 0.1.0 Initial release
+* 0.1.7 settled on entry point structure
+
 
 ## Input Data Format - genome consists of nodes and edges :
 
 // library expects JSOM data for input of network graph of nodes / edges
 
+````
 {"nodes": {
         "nodeid": nodedata, 
         "nodeid": nodedata, ...
@@ -42,7 +45,7 @@ console.log("here is genome in action : ", hello_corinde());
         {"source": "sourceid", "target": "targetid"}, ...
     ]
 }
-
+````
 
 
 
