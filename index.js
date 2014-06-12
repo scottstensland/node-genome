@@ -11,17 +11,14 @@ var genome_obj = require('./genome');
 
 module.exports = {
 
-	entry_point : function(spec, my) {
+	// var genome = {},
 
-		console.log("inside entry_point");
+	init : function(spec, my) {
+
+		console.log("inside init");
 
 		// var local_genome = genome_obj.genome(spec, my);
-		var local_genome = genome_obj.genome(spec, my);
-
-		// genome.genome({name : "Corindeee"});
-
-		console.log(local_genome.get_name());
-
+		return genome_obj.genome(spec, my);
 
 	},
 
