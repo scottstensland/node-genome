@@ -19,6 +19,7 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 	var network_nodes = []; // initialize fresh network
 	var network_edges = []; // initialize fresh network
+	var network_timeseries = []; // each element contains a list of gene nodes which influence that neighborhood
 
 	var default_edge_weight = 12;
 
@@ -64,11 +65,31 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				console.log(local_label, " edge nodeid_from ", nodeid_from,
 										      " nodeid_to ", nodeid_to,
 										      " weight ", network_edges[nodeid_from][nodeid_to]);
-
-			}
+			};
 
 			// network_edges[nodeid_from].show_genome_edge();
 		};
+
+		console.log("------- now showing network_timeseries");
+		console.log("------- now showing network_timeseries");
+		console.log("------- now showing network_timeseries");
+
+		for (var curr_timeslice in network_timeseries) {
+
+			console.log("curr_timeslice ", curr_timeslice);
+
+			for (var curr_nodeid_in_timeslice in network_timeseries[curr_timeslice]) {
+
+				// console.log("curr_timeslice ", curr_timeslice,
+				// 			" curr_nodeid_in_timeslice ", curr_nodeid_in_timeslice,
+				// 			" aaaaaaaaaaaaa ", network_timeseries[curr_timeslice][curr_nodeid_in_timeslice]);
+
+				var curr_nodedata = network_timeseries[curr_timeslice][curr_nodeid_in_timeslice];
+
+				console.log("time ", curr_timeslice, " nodeid ", curr_nodeid_in_timeslice,
+							" weight ", curr_nodedata["weight"], " blah ", curr_nodedata["blah"]);
+			}
+		}
 	};
 	that.show = show;
 
@@ -160,6 +181,12 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 		// console.log("all_new_edges ", all_new_edges);
 
 		// ---
+
+		if (typeof all_new_edges == "undefined") {
+
+			console.log("all_new_edges is NOT defined so exiting from add_edge ");
+			return;
+		};
 
 		var size_array = all_new_edges.length;
 		for (var index = 0; index < size_array; index++) {
@@ -272,6 +299,75 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 	};
 	that.add_edge = add_edge;
 
+	// ---
+
+	var add_timeslices = function (given_new_timeslices_json) {
+
+		var all_new_timeslices = given_new_timeslices_json["timeslices"];
+
+		console.log("all_new_timeslices ", all_new_timeslices);
+
+		// ---
+
+		if (typeof all_new_timeslices == "undefined") {
+
+			console.log("all_new_timeslices is NOT defined so exiting from add_edge ");
+			return;
+		};
+
+		var size_array = all_new_timeslices.length;
+		for (var index = 0; index < size_array; index++) {
+
+			var curr_value = all_new_timeslices[index];
+
+			console.log("\n\n ---------  new timeslice -------------- ");
+			console.log(index, " curr_value ", curr_value);
+
+			var curr_timeslice = {};
+
+			for (var curr_nodedata in curr_value) {
+
+				var curr_node_in_timeslice = {};
+
+				console.log(index, " curr_value ", curr_value,
+								" curr_nodedata ", curr_value[curr_nodedata]);
+
+				var nodeid = curr_value[curr_nodedata]["nodeid"];
+
+				if (typeof nodeid == "undefined") {
+
+					var err_msg = "ERROR - new timeslice missing tag : nodeid";
+					console.log(err_msg);
+					process.exit(6);
+				};
+
+				// ---
+
+				var weight = curr_value[curr_nodedata]["weight"];
+
+				if (typeof weight == "undefined") {
+
+					var err_msg = "ERROR - new timeslice missing tag : weight";
+					console.log(err_msg);
+					process.exit(7);
+				};
+
+				// ---
+
+				curr_node_in_timeslice["weight"] = weight;
+				curr_node_in_timeslice["blah"] = 186;
+
+				curr_timeslice[nodeid] = curr_node_in_timeslice;
+			};
+
+			network_timeseries[index] = curr_timeslice;
+		};
+
+		console.log("network_timeseries ", network_timeseries);
+	};
+	that.add_timeslices = add_timeslices;
+
+	// ---
 
 	var get_genome_name = function () {
 
