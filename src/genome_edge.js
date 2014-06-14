@@ -1,23 +1,28 @@
 
 
 module.exports.genome_edge = function(spec, my) { // functional inheritance Crockford 2008 pg 52
-		
+
+	// var default_spec = { name : "Corinde Stensland"};
+
 	var that = {},
-		spec = spec || { name : "Corinde Stensland"};
+		spec = spec;
 
 	my = my || {};
 
-	var get_edge_name = function () {
+	// var name = spec.name || default_spec.name;
+	// that.name = name;
 
-		return spec.name;
-	};
-	that.get_edge_name = get_edge_name;
+	// var get_edge_name = function () {
 
-	var says = function () {
+	// 	return spec.name;
+	// };
+	// that.get_edge_name = get_edge_name;
 
-		return spec.saying || "Stensland";
-	};
-	that.says = says;
+	// var says = function () {
+
+	// 	return spec.saying || "Stensland";
+	// };
+	// that.says = says;
 
 	// ---
 
@@ -46,6 +51,20 @@ module.exports.genome_edge = function(spec, my) { // functional inheritance Croc
 	that.nodeid_to = nodeid_to;
 
 	console.log("nodeid_to ", nodeid_to);
+
+	/*
+	var show_genome_edge = function() {
+
+		console.log("name\t", name);
+		console.log("says\t", says());
+		console.log("nodeid_from\t", nodeid_from);
+		console.log("nodeid_to\t", nodeid_to);
+		// console.log("nodedata\t", nodedata);
+		// console.log("size\t", size);
+		console.log("<><><>  <><><>  <><><>");
+	};
+	that.show_genome_edge = show_genome_edge;
+	*/
 
 	return that;
 };

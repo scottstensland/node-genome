@@ -20,25 +20,54 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 	var network_nodes = []; // initialize fresh network
 	var network_edges = []; // initialize fresh network
 
+	var default_edge_weight = 12;
+
 	// ---
+
+	var show_genome_node = function(given_node) {
+
+		console.log("name\t", given_node.name);
+		console.log("says\t", given_node.says());
+		console.log("nodeid\t", given_node.nodeid);
+		console.log("nodedata\t", given_node.nodedata);
+		console.log("size\t", given_node.size);
+		console.log("<><><>  <><><>  <><><>");
+	};
+	that.show_genome_node = show_genome_node;
+	
 
 	var show = function(given_label) {
 
 		var local_label = given_label || "showing genome ";
 
+		console.log("------- now showing network_nodes");
+		console.log("------- now showing network_nodes");
+		console.log("------- now showing network_nodes");
+
 		for (var curr_nodeid in network_nodes) {
 
 			console.log(local_label, " nodeid ", curr_nodeid);
 
-			console.log("TOP get_node_name ");
-			network_nodes[curr_nodeid].get_node_name();
-			console.log("BOT get_node_name ");
-
+			console.log("NAME TOOOP", show_genome_node(network_nodes[curr_nodeid]), " BOOOOT");
 		};
 
-		for (var curr_nodeid in network_edges) {
+		console.log("------- now showing network_edges");
+		console.log("------- now showing network_edges");
+		console.log("------- now showing network_edges");
 
-			console.log(local_label, " edge from ", curr_nodeid, network_edges[curr_nodeid]);
+		for (var nodeid_from in network_edges) {
+
+			console.log(local_label, " edge from ", nodeid_from);
+
+			for (var nodeid_to in network_edges[nodeid_from]) {
+
+				console.log(local_label, " edge nodeid_from ", nodeid_from,
+										      " nodeid_to ", nodeid_to,
+										      " weight ", network_edges[nodeid_from][nodeid_to]);
+
+			}
+
+			// network_edges[nodeid_from].show_genome_edge();
 		};
 	};
 	that.show = show;
@@ -53,17 +82,22 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 		var all_new_nodes = given_new_nodes_json["nodes"];
 
+		console.log("all_new_nodes ", all_new_nodes);
+		console.log("iiiiiiiiiiiiiii");
+
+
 		// for (var i = 0; i < Things.length; i++) {
 		// 	Things[i]
 		// };
 
-		show(all_new_nodes, "showing all_new_nodes");
+		// show(all_new_nodes, "showing all_new_nodes");
 
 		for (var curr_nodeid in all_new_nodes) {
 
 			console.log("nodeid ", curr_nodeid);
 
 			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid,
+																 nodedata: all_new_nodes[curr_nodeid],
 																 name : "Corinde Wiers Stensland" });
 
 			if (typeof network_nodes[curr_nodeid] != "undefined") {
@@ -73,9 +107,14 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				process.exit(4);
 			}
 
-			console.log("NAME TOP", curr_genome_node.get_node_name(), " BOT");
+			// console.log("NAME TOP", curr_genome_node.get_node_name(), " BOT");
 
 			network_nodes[curr_nodeid] = curr_genome_node;
+
+			console.log("NAME TOP", network_nodes[curr_nodeid].get_node_name(), " BOT");
+
+			// network_nodes[curr_nodeid].show_genome_node();
+			show_genome_node(network_nodes[curr_nodeid]);
 		}
 
 		console.log("all_new_nodes ------->", all_new_nodes, "<-------");
@@ -94,11 +133,13 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 		var all_new_edges = given_new_edges_json["edges"];
 
+		console.log("all_new_edges ", all_new_edges);
+
 		// for (var i = 0; i < Things.length; i++) {
 		// 	Things[i]
 		// };
 
-		show(all_new_edges, "showing all_new_edges");
+		// show(all_new_edges, "showing all_new_edges");
 
 		// for (var curr_edge in all_new_edges) {
 
@@ -125,7 +166,10 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 			var curr_value = all_new_edges[index];
 
-			// console.log(index, " curr_value ", curr_value);
+			console.log("\n\n ---------  new edge -------------- ");
+			console.log(index, " curr_value ", curr_value);
+			console.log(index, " curr_value ", curr_value);
+			console.log(index, " curr_value ", curr_value);
 
 			// for (var curr_edge in curr_value) {
 
@@ -151,7 +195,7 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				process.exit(4);
 			}
 
-			// console.log(curr_value, " source plucked nodeid_from : ", nodeid_from);
+			console.log(curr_value, " source plucked nodeid_from : ", nodeid_from);
 
 			// ---
 
@@ -166,7 +210,17 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				process.exit(4);
 			}
 
-			// console.log(curr_value, " plucked nodeid_from ", nodeid_from, " nodeid_to ", nodeid_to);
+
+			var edge_weight = curr_value["weight"];
+
+			if (typeof edge_weight == "undefined") {
+
+				edge_weight = default_edge_weight;
+			}
+
+			console.log(curr_value, " plucked nodeid_from ", nodeid_from, 
+									" nodeid_to ", nodeid_to,
+									" edge_weight ", edge_weight);
 
 			// ---
 
@@ -176,12 +230,12 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 				existing_genome_edge = network_edges[nodeid_from];
 
-				// console.log("nodeid_from ", nodeid_from, 
-				// 			" SEEING existing_genome_edge ", existing_genome_edge);
+				console.log("nodeid_from ", nodeid_from, 
+							" SEEING existing_genome_edge ", existing_genome_edge);
 			}
 
-			// console.log("nodeid_from ", nodeid_from, 
-			// 				" NNEEEWWW existing_genome_edge ", existing_genome_edge);
+			console.log("nodeid_from ", nodeid_from, 
+							" NNEEEWWW existing_genome_edge ", existing_genome_edge);
 
 			if (typeof existing_genome_edge[nodeid_to] != "undefined") {
 
@@ -190,14 +244,29 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				process.exit(6);
 			}
 
-			existing_genome_edge[nodeid_to] = genome_edge_obj.genome_edge({nodeid_from : nodeid_from, nodeid_to : nodeid_to});
+			// existing_genome_edge[nodeid_to] = genome_edge_obj.genome_edge(
+			// 									{	nodeid_from : nodeid_from, 
+			// 										nodeid_to : nodeid_to
+			// 									});
+
+			existing_genome_edge[nodeid_to] = edge_weight;
 
 			network_edges[nodeid_from] = existing_genome_edge;
 
-			// show("bottom of add_edge");
+			console.log("HHHHHHHH ere is fresh edge FROM ", nodeid_from, " VALUE ", network_edges[nodeid_from]);
+
+			console.log("----- network_edges so FAR -----------");
+			console.log("----- network_edges so FAR -----------");
+			console.log("----- network_edges so FAR -----------");
+			console.log(network_edges);
+
+			console.log("bottom of add_edge");
+			console.log("bottom of add_edge");
+			console.log("bottom of add_edge");
 		}
 
 		console.log("size_array ", size_array);
+		console.log("network_edges ", network_edges);
 
 		// ---
 	};

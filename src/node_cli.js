@@ -20,15 +20,23 @@ var add_these = {
 
 	nodes : {
 		// "nodeid": nodedata, 
-        1: "stuff_1", 
-        2: "stuff_2",
-        3: "stuff_3",
+        0: { size: 1024 }, 
+        1: { size: 128 }, 
+        2: { size: 128 },
+        3: { size: 128 },
+        // 4: "stuff_4", 
+        4: { size: 512}, 
+
     },
 	edges : [
-	        {"source": 1, "target": 2},
-	        {"source": 1, "target": 3},
-	        {"source": 2, "target": 3},
-	        {"source": 3, "target": 1},
+	        {source: 1, target: 2, weight: 10},
+	        {source: 1, target: 3, weight: 10},
+	        {source: 2, target: 3, weight: 10},
+	        {source: 3, target: 1, weight: 10},
+	        {source: 4, target: 1, weight: 10},
+	        {source: 4, target: 3, weight: 10},
+	        {source: 0, target: 3, weight: 16},
+
 	        // {"source": "sourceid", "target": "targetid"},
 	]
 };
