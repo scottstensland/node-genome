@@ -5,7 +5,7 @@
 
 // var shared_utils = require('./shared_utils');
 
-module.exports.genome = function(spec, my) { // functional inheritance Crockford 2008 pg 52
+module.exports.init = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 
 	var genome_node_obj = require('./genome_node');
 	var genome_edge_obj = require('./genome_edge');

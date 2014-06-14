@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-// var genome = require('node-genome');
-var genome_obj = require('./genome');
+var genome = require('node-genome');
+// var genome_obj = require('./genome');
 // var genome_obj = require('/home/stens/bin/nodejs/lib/node_modules/node-genome/src/genome');
 
 
 // console.log(genome_obj);
 
-var genome = genome_obj.genome({ name : "Corinde Stensland"});
+var genome = genome.init({ name : "Corinde Stensland"});
 // genome.entry_point();
 
 
