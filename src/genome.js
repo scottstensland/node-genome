@@ -1,4 +1,8 @@
 
+
+"use strict";
+
+
 // var shared_utils = require('./shared_utils');
 
 module.exports.genome = function(spec, my) { // functional inheritance Crockford 2008 pg 52
@@ -25,6 +29,11 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 		for (var curr_nodeid in network_nodes) {
 
 			console.log(local_label, " nodeid ", curr_nodeid);
+
+			console.log("TOP get_node_name ");
+			network_nodes[curr_nodeid].get_node_name();
+			console.log("BOT get_node_name ");
+
 		};
 
 		for (var curr_nodeid in network_edges) {
@@ -54,7 +63,8 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 			console.log("nodeid ", curr_nodeid);
 
-			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid });
+			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid,
+																 name : "Corinde Wiers Stensland" });
 
 			if (typeof network_nodes[curr_nodeid] != "undefined") {
 
@@ -63,10 +73,12 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				process.exit(4);
 			}
 
+			console.log("NAME TOP", curr_genome_node.get_node_name(), " BOT");
+
 			network_nodes[curr_nodeid] = curr_genome_node;
 		}
 
-		console.log("all_new_nodes ", all_new_nodes);
+		console.log("all_new_nodes ------->", all_new_nodes, "<-------");
 
 		// ---
 	};
@@ -88,9 +100,9 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 		show(all_new_edges, "showing all_new_edges");
 
-		for (var curr_edge in all_new_edges) {
+		// for (var curr_edge in all_new_edges) {
 
-			console.log("curr_edge ", curr_edge);
+			// console.log("curr_edge ", curr_edge);
 
 			// var curr_genome_node = genome_edge_obj.genome_edge({ nodeid: curr_nodeid });
 
@@ -102,9 +114,9 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 			// }
 
 			// network_nodes[curr_nodeid] = curr_genome_node;
-		}
+		// }
 
-		console.log("all_new_edges ", all_new_edges);
+		// console.log("all_new_edges ", all_new_edges);
 
 		// ---
 
@@ -154,11 +166,9 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 				process.exit(4);
 			}
 
-			console.log(curr_value, " plucked nodeid_from ", nodeid_from, " nodeid_to ", nodeid_to);
+			// console.log(curr_value, " plucked nodeid_from ", nodeid_from, " nodeid_to ", nodeid_to);
 
 			// ---
-
-			// var curr_genome_edge = genome_edge_obj.genome_edge({nodeid_from : nodeid_from, nodeid_to : nodeid_to});
 
 			var existing_genome_edge = {};
 
@@ -166,12 +176,12 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 				existing_genome_edge = network_edges[nodeid_from];
 
-				console.log("nodeid_from ", nodeid_from, 
-							" SEEING existing_genome_edge ", existing_genome_edge);
+				// console.log("nodeid_from ", nodeid_from, 
+				// 			" SEEING existing_genome_edge ", existing_genome_edge);
 			}
 
-			console.log("nodeid_from ", nodeid_from, 
-							" NNEEEWWW existing_genome_edge ", existing_genome_edge);
+			// console.log("nodeid_from ", nodeid_from, 
+			// 				" NNEEEWWW existing_genome_edge ", existing_genome_edge);
 
 			if (typeof existing_genome_edge[nodeid_to] != "undefined") {
 
@@ -184,7 +194,7 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 
 			network_edges[nodeid_from] = existing_genome_edge;
 
-			show("bottom of add_edge");
+			// show("bottom of add_edge");
 		}
 
 		console.log("size_array ", size_array);
@@ -194,11 +204,11 @@ module.exports.genome = function(spec, my) { // functional inheritance Crockford
 	that.add_edge = add_edge;
 
 
-	var get_name = function () {
+	var get_genome_name = function () {
 
 		return spec.name;
 	};
-	that.get_name = get_name;
+	that.get_genome_name = get_genome_name;
 
 	var says = function () {
 

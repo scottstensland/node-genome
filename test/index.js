@@ -1,6 +1,6 @@
 
 var should = require('chai').should(),
-    genome = require('../index');
+    genome = require('../src/genome');
 
 describe('#says', function() {
 

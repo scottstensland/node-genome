@@ -7,11 +7,11 @@ module.exports.genome_edge = function(spec, my) { // functional inheritance Croc
 
 	my = my || {};
 
-	var get_name = function () {
+	var get_edge_name = function () {
 
 		return spec.name;
 	};
-	that.get_name = get_name;
+	that.get_edge_name = get_edge_name;
 
 	var says = function () {
 

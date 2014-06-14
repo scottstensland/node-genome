@@ -8,11 +8,11 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	my = my || {};
 
-	var get_name = function () {
+	var get_node_name = function () {
 
 		return spec.name;
 	};
-	that.get_name = get_name;
+	that.get_node_name = get_node_name;
 
 	var says = function () {
 
@@ -33,6 +33,8 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 	that.nodeid = nodeid;
 
 	console.log("nodeid ", nodeid);
+
+	// that.get_node_name();
 
 	return that;
 };
