@@ -1,6 +1,23 @@
 
 
 
+var pop_buffer_random = function(get_random_float, audio_obj) {
+
+	var size_buffer = audio_obj.buffer.length;
+	for (var index = 0; index < size_buffer; index++) {
+
+		audio_obj.buffer[index] = get_random_float(-1.0, 1.0);
+
+		if (index < 5) {
+
+			console.log(index, audio_obj.buffer[index]);
+		}
+	}
+}
+
+	// spec.get_random_float(-3.5,5.6));
+
+
 module.exports.genome_node = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 		
 	var that = {},
@@ -8,22 +25,11 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	my = my || {};
 
-/*
-	var name = spec.name;
-	that.name = name;
+	// console.log("here is a random float ", shared_utils.get_random_in_range_inclusive_float(-3.5,5.6));
+	// console.log("here is a random float ", get_random_in_range_inclusive_float(-3.5,5.6));
 
-	var get_node_name = function () {
+	console.log("here is a random float  222", spec.get_random_float(-3.5,5.6));
 
-		return spec.name;
-	};
-	that.get_node_name = get_node_name;
-
-	var says = function () {
-
-		return spec.saying || "Stensland";
-	};
-	that.says = says;
-*/
 
 	// ---
 
@@ -59,8 +65,14 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 	var size = nodedata.size;
 	that.size = size;
 
-	var buffer = new Float32Array(size);
-	that.buffer = buffer;
+	var audio_obj = {};
+
+	audio_obj.buffer = new Float32Array(size);
+	that.audio_obj = audio_obj;
+	that.buffer = audio_obj.buffer;
+
+	pop_buffer_random(spec.get_random_float, audio_obj);
+
 
 	console.log("nodeid ", nodeid, " just allocated Float32Array of size ", size);
 

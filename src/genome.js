@@ -10,6 +10,10 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	var genome_node_obj = require('./genome_node');
 	var genome_edge_obj = require('./genome_edge');
 
+
+	var shared_utils_obj = require("shared-utils");
+	var shared_utils = shared_utils_obj.shared_utils();
+
 	// ---
 
 	var that = {},
@@ -26,6 +30,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	var name = spec.name;
 	that.name = name;
 
+	that.get_random_float = shared_utils.get_random_in_range_inclusive_float;
+
 	// ---
 
 	var show_genome_node = function(given_node) {
@@ -37,6 +43,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		console.log("size\t", given_node.size);
 		console.log("typeof buffer \t", typeof given_node.buffer);
 		console.log("buffer length\t", given_node.buffer.length);
+		console.log("buffer content\t", given_node.buffer[0]);
+		console.log("buffer content\t", given_node.buffer[1]);
+		console.log("buffer content\t", given_node.buffer[2]);
 		console.log("<><><>  <><><>  <><><>");
 	};
 	that.show_genome_node = show_genome_node;
@@ -130,6 +139,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 																 nodedata: all_new_nodes[curr_nodeid],
 																 // nodedata: { size : 2048},
 																 name : "Scott Stensland",
+																 get_random_float : that.get_random_float,
 															});
 
 			if (typeof network_nodes[curr_nodeid] != "undefined") {
