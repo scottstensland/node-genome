@@ -23,12 +23,15 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	var default_edge_weight = 12;
 
+	var name = spec.name;
+	that.name = name;
+
 	// ---
 
 	var show_genome_node = function(given_node) {
 
-		console.log("name\t", given_node.name);
-		console.log("says\t", given_node.says());
+		// console.log("name\t", given_node.name);
+		// console.log("says\t", given_node.says());
 		console.log("nodeid\t", given_node.nodeid);
 		console.log("nodedata\t", given_node.nodedata);
 		console.log("size\t", given_node.size);
@@ -49,7 +52,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			console.log(local_label, " nodeid ", curr_nodeid);
 
-			console.log("NAME TOOOP", show_genome_node(network_nodes[curr_nodeid]), " BOOOOT");
+			console.log("\nNAME TOOOP --------------");
+			show_genome_node(network_nodes[curr_nodeid]);
+			console.log("------------------ BOOOOT\n");
 		};
 
 		console.log("------- now showing network_edges");
@@ -119,7 +124,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid,
 																 nodedata: all_new_nodes[curr_nodeid],
-																 name : "Corinde Wiers Stensland" });
+																 name : "Scott Stensland" });
 
 			if (typeof network_nodes[curr_nodeid] != "undefined") {
 
@@ -132,7 +137,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			network_nodes[curr_nodeid] = curr_genome_node;
 
-			console.log("NAME TOP", network_nodes[curr_nodeid].get_node_name(), " BOT");
+			console.log("NAME TOP", network_nodes[curr_nodeid].size, " BOT");
 
 			// network_nodes[curr_nodeid].show_genome_node();
 			show_genome_node(network_nodes[curr_nodeid]);
@@ -153,8 +158,6 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		console.log("kyoto kyoto kyoto");
 
 		var all_new_edges = given_new_edges_json["edges"];
-
-		console.log("all_new_edges ", all_new_edges);
 
 		// for (var i = 0; i < Things.length; i++) {
 		// 	Things[i]
@@ -187,6 +190,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			console.log("all_new_edges is NOT defined so exiting from add_edge ");
 			return;
 		};
+		
+		console.log("all_new_edges ", all_new_edges);
 
 		var size_array = all_new_edges.length;
 		for (var index = 0; index < size_array; index++) {
@@ -371,7 +376,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	var get_genome_name = function () {
 
-		return spec.name;
+		return name;
 	};
 	that.get_genome_name = get_genome_name;
 

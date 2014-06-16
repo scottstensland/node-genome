@@ -1,20 +1,16 @@
 #!/usr/bin/env node
 
-var genome = require('node-genome');
-// var genome_obj = require('./genome');
-// var genome_obj = require('/home/stens/bin/nodejs/lib/node_modules/node-genome/src/genome');
+// var genome_module = require('node-genome');
 
+var genome_module = require('./genome');
+var genome = genome_module.init({ name : "Corinde Wiers"});
 
-// console.log(genome_obj);
-
-var genome = genome.init({ name : "Corinde Stensland"});
-// genome.entry_point();
+// var genome = require('./genome').init({ name : "Corinde Stensland"});
 
 
 console.log("-----------------");
 // console.log(genome);
 console.log(genome.says());
-
 
 var add_these = {
 
@@ -80,6 +76,8 @@ console.log("-----------------");
 // genome.says();
 
 genome.show();
+
+console.log("---- genome name ", genome.get_genome_name());
 
 
 console.log("-----------------");

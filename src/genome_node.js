@@ -8,6 +8,7 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	my = my || {};
 
+/*
 	var name = spec.name;
 	that.name = name;
 
@@ -22,6 +23,7 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 		return spec.saying || "Stensland";
 	};
 	that.says = says;
+*/
 
 	// ---
 
