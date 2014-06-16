@@ -4,7 +4,7 @@
 module.exports.genome_node = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 		
 	var that = {},
-		spec = spec || { name : "Corinde Stensland"};
+		spec = spec || { name : "Corinde Stensland" };
 
 	my = my || {};
 
@@ -39,11 +39,30 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	// ---
 
-	var nodedata = spec.nodedata || { size: 128 };
+	// var nodedata = spec.nodedata || { size: 128 };
+	var nodedata = spec.nodedata;
 	that.nodedata = nodedata;
+
+
+
+	console.log("nodedata ", nodedata);
+	console.log("nodedata.size ", nodedata.size);
+
+
+	if (typeof nodedata.size === "undefined") {
+
+		var err_msg = "ERROR - you must supply spec.nodedata.size";
+		console.log(err_msg);
+		process.exit(3);
+	};
 
 	var size = nodedata.size;
 	that.size = size;
+
+	var buffer = new Float32Array(size);
+	that.buffer = buffer;
+
+	console.log("nodeid ", nodeid, " just allocated Float32Array of size ", size);
 
 	console.log("nodeid ", nodeid);
 	console.log("nodedata ", nodedata);

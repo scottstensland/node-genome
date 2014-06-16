@@ -21,6 +21,7 @@ var add_these = {
         2: { size: 128 },
         3: { size: 128 },
         4: { size: 512}, 
+        5: { size: 512},
     },
 
     /*
@@ -53,12 +54,13 @@ console.log("----------------- about to call add_node");
 
 genome.add_node(add_these);
 
-
+/*
 console.log("----------------- TOP add_edge");
 
 genome.add_edge(add_these);
 
 console.log("----------------- END add_edge");
+*/
 
 
 console.log("----------------- TOP add_timeslices");

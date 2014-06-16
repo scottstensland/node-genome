@@ -35,6 +35,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		console.log("nodeid\t", given_node.nodeid);
 		console.log("nodedata\t", given_node.nodedata);
 		console.log("size\t", given_node.size);
+		console.log("typeof buffer \t", typeof given_node.buffer);
+		console.log("buffer length\t", given_node.buffer.length);
 		console.log("<><><>  <><><>  <><><>");
 	};
 	that.show_genome_node = show_genome_node;
@@ -57,6 +59,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			console.log("------------------ BOOOOT\n");
 		};
 
+		/*
 		console.log("------- now showing network_edges");
 		console.log("------- now showing network_edges");
 		console.log("------- now showing network_edges");
@@ -74,6 +77,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			// network_edges[nodeid_from].show_genome_edge();
 		};
+		*/
 
 		console.log("------- now showing network_timeseries");
 		console.log("------- now showing network_timeseries");
@@ -124,7 +128,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid,
 																 nodedata: all_new_nodes[curr_nodeid],
-																 name : "Scott Stensland" });
+																 // nodedata: { size : 2048},
+																 name : "Scott Stensland",
+															});
 
 			if (typeof network_nodes[curr_nodeid] != "undefined") {
 
@@ -151,6 +157,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ---
 
+	/*
 	var add_edge = function(given_new_edges_json) { // adds to network object
 
 		console.log("tsui tsui tsui");
@@ -190,7 +197,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			console.log("all_new_edges is NOT defined so exiting from add_edge ");
 			return;
 		};
-		
+
 		console.log("all_new_edges ", all_new_edges);
 
 		var size_array = all_new_edges.length;
@@ -303,6 +310,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		// ---
 	};
 	that.add_edge = add_edge;
+	*/
 
 	// ---
 
