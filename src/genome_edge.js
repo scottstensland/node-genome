@@ -26,7 +26,7 @@ module.exports.genome_edge = function(spec, my) { // functional inheritance Croc
 
 	// ---
 
-	if (spec.nodeid_from === "undefined") {
+	if (typeof spec.nodeid_from === "undefined") {
 
 		var err_msg = "ERROR - you must supply nodeid_from";
 		console.log(err_msg);
@@ -40,7 +40,7 @@ module.exports.genome_edge = function(spec, my) { // functional inheritance Croc
 
 	// ---
 
-	if (spec.nodeid_to === "undefined") {
+	if (typeof spec.nodeid_to === "undefined") {
 
 		var err_msg = "ERROR - you must supply nodeid_to";
 		console.log(err_msg);

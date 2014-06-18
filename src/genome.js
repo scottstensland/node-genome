@@ -25,6 +25,14 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	var default_edge_weight = 12;
 	var max_index_show_dna = 3;
+	var factor_genometime_to_clocktime = 2000.7;	// multiplier mapping from count of timeslices in
+												// network_timeseries to   count of samples in output buffer
+
+	var buffer; // output audio buffer
+	that.buffer = buffer;
+
+	var max_samples;
+	that.max_samples = max_samples;
 
 	var name = spec.name;
 	that.name = name;
@@ -39,8 +47,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		// console.log("says\t", given_node.says());
 		console.log("nodeid\t", given_node.nodeid);
 		console.log("nodedata\t", given_node.nodedata);
+		console.log("factor_stretch\t", given_node.factor_stretch);
 		console.log("size\t", given_node.size);
-		console.log("typeof buffer \t", typeof given_node.buffer);
+		// console.log("typeof buffer \t", typeof given_node.buffer);
 		console.log("buffer length\t", given_node.buffer.length);
 		console.log("buffer content\t", given_node.buffer[0]);
 		console.log("buffer content\t", given_node.buffer[1]);
@@ -199,167 +208,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		}
 
 		console.log("all_new_nodes ------->", all_new_nodes, "<-------");
-
-		// ---
 	};
 	that.add_node = add_node;
-
-	// ---
-
-	/*
-	var add_edge = function(given_new_edges_json) { // adds to network object
-
-		console.log("tsui tsui tsui");
-		console.log(given_new_edges_json);
-		console.log("kyoto kyoto kyoto");
-
-		var all_new_edges = given_new_edges_json["edges"];
-
-		// for (var i = 0; i < Things.length; i++) {
-		// 	Things[i]
-		// };
-
-		// show(all_new_edges, "showing all_new_edges");
-
-		// for (var curr_edge in all_new_edges) {
-
-			// console.log("curr_edge ", curr_edge);
-
-			// var curr_genome_node = genome_edge_obj.genome_edge({ nodeid: curr_nodeid });
-
-			// if (typeof network_nodes[curr_nodeid] != "undefined") {
-
-			// 	var err_msg = "ERROR - you are trying to add duplicate nodeid : " + curr_nodeid;
-			// 	console.log(err_msg);
-			// 	process.exit(4);
-			// }
-
-			// network_nodes[curr_nodeid] = curr_genome_node;
-		// }
-
-		// console.log("all_new_edges ", all_new_edges);
-
-		// ---
-
-		if (typeof all_new_edges == "undefined") {
-
-			console.log("all_new_edges is NOT defined so exiting from add_edge ");
-			return;
-		};
-
-		console.log("all_new_edges ", all_new_edges);
-
-		var size_array = all_new_edges.length;
-		for (var index = 0; index < size_array; index++) {
-
-			var curr_value = all_new_edges[index];
-
-			console.log("\n\n ---------  new edge -------------- ");
-			console.log(index, " curr_value ", curr_value);
-			console.log(index, " curr_value ", curr_value);
-			console.log(index, " curr_value ", curr_value);
-
-			// for (var curr_edge in curr_value) {
-
-			// 	console.log(index, " curr_value ", curr_value, " curr_edge ", curr_edge);
-			// }
-
-			// if (curr_value{"source"} == "undefined") {
-			if (curr_value["source"] == "undefined") {
-
-				var err_msg = "ERROR - missing 'source' key - invalid input data format when adding new edges : " + curr_value;
-				console.log(err_msg);
-				process.exit(4);
-			}
-
-			var nodeid_from = curr_value["source"];
-
-			if (typeof nodeid_from == "undefined") {
-
-				// stens TODO - leverage power of console.log to show body of curr_value
-
-				var err_msg = "ERROR - in add edge ... when extracting source nodeid_from is undefined : ", curr_value;
-				console.log(err_msg);
-				process.exit(4);
-			}
-
-			console.log(curr_value, " source plucked nodeid_from : ", nodeid_from);
-
-			// ---
-
-			var nodeid_to = curr_value["target"];
-
-			if (typeof nodeid_to == "undefined") {
-
-				// stens TODO - leverage power of console.log to show body of curr_value
-
-				var err_msg = "ERROR - in add edge ... when extracting target nodeid_to is undefined : ", curr_value;
-				console.log(err_msg);
-				process.exit(4);
-			}
-
-
-			var edge_weight = curr_value["weight"];
-
-			if (typeof edge_weight == "undefined") {
-
-				edge_weight = default_edge_weight;
-			}
-
-			console.log(curr_value, " plucked nodeid_from ", nodeid_from, 
-									" nodeid_to ", nodeid_to,
-									" edge_weight ", edge_weight);
-
-			// ---
-
-			var existing_genome_edge = {};
-
-			if (typeof network_edges[nodeid_from] != "undefined") {
-
-				existing_genome_edge = network_edges[nodeid_from];
-
-				console.log("nodeid_from ", nodeid_from, 
-							" SEEING existing_genome_edge ", existing_genome_edge);
-			}
-
-			console.log("nodeid_from ", nodeid_from, 
-							" NNEEEWWW existing_genome_edge ", existing_genome_edge);
-
-			if (typeof existing_genome_edge[nodeid_to] != "undefined") {
-
-				var err_msg = "ERROR - seeing duplicate edge ... do not use add_edge instead use update_edge";
-				console.log(err_msg, existing_genome_edge, nodeid_from, nodeid_to);
-				process.exit(6);
-			}
-
-			// existing_genome_edge[nodeid_to] = genome_edge_obj.genome_edge(
-			// 									{	nodeid_from : nodeid_from, 
-			// 										nodeid_to : nodeid_to
-			// 									});
-
-			existing_genome_edge[nodeid_to] = edge_weight;
-
-			network_edges[nodeid_from] = existing_genome_edge;
-
-			console.log("HHHHHHHH ere is fresh edge FROM ", nodeid_from, " VALUE ", network_edges[nodeid_from]);
-
-			console.log("----- network_edges so FAR -----------");
-			console.log("----- network_edges so FAR -----------");
-			console.log("----- network_edges so FAR -----------");
-			console.log(network_edges);
-
-			console.log("bottom of add_edge");
-			console.log("bottom of add_edge");
-			console.log("bottom of add_edge");
-		}
-
-		console.log("size_array ", size_array);
-		console.log("network_edges ", network_edges);
-
-		// ---
-	};
-	that.add_edge = add_edge;
-	*/
 
 	// ---
 
@@ -444,19 +294,56 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	that.pop_entire_genome = pop_entire_genome;
 
-	/*
-	var get_genome_name = function () {
+	// ---
 
-		return name;
+	var parse_genome_synth_sound = function() {
+
+		console.log("-----TOP parse_genome_synth_sound ");
+
+		var count_num_chronos_in_network_timeseries = network_timeseries.length;
+
+		console.log("count_num_chronos_in_network_timeseries ", count_num_chronos_in_network_timeseries);
+
+		// convert float into int ... using :    x = ~~(somefloat);
+		max_samples = ~~(count_num_chronos_in_network_timeseries * factor_genometime_to_clocktime);
+
+
+		console.log("max_samples ", max_samples);
+
+		buffer = new Float32Array(max_samples);
+
+		console.log("buffer length ", buffer.length);
+
+
+		// factor_genometime_to_clocktime <-- mapping between count of entries in network_timeseries
+		//									  and number of samples in final output buffer
+
+		for (var chronos in network_timeseries) {
+
+			var curr_timeslice = network_timeseries[chronos];
+
+			// console.log("\n\nchronos ", chronos, " curr_timeslice ", curr_timeslice, "\n\n____");
+
+			for (var whichever_node in curr_timeslice) {
+
+				var nodedata = curr_timeslice[whichever_node];
+
+				console.log("chronos ", chronos, 
+							// " curr_timeslice ", curr_timeslice,
+							" whichever_node ", whichever_node,
+							" nodedata ", nodedata);
+
+				var curr_buffer = network_nodes[whichever_node].buffer;
+
+				for (var index = 0; index < max_index_show_dna; index++) {
+
+					console.log(curr_buffer[index]);
+				}
+
+			}
+		}
 	};
-	that.get_genome_name = get_genome_name;
-
-	var says = function () {
-
-		return spec.saying || "Wiers";
-	};
-	that.says = says;
-	*/
+	that.parse_genome_synth_sound = parse_genome_synth_sound;
 
 	return that;
 };

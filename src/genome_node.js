@@ -17,7 +17,6 @@ var pop_buffer_random = function(get_random_float, audio_obj) {
 
 // ---
 
-
 module.exports.genome_node = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 		
 	var that = {},
@@ -25,15 +24,9 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	my = my || {};
 
-	// console.log("here is a random float ", shared_utils.get_random_in_range_inclusive_float(-3.5,5.6));
-	// console.log("here is a random float ", get_random_in_range_inclusive_float(-3.5,5.6));
-
-	console.log("here is a random float  222", spec.get_random_float(-3.5,5.6));
-
-
 	// ---
 
-	if (spec.nodeid === "undefined") {
+	if (typeof spec.nodeid === "undefined") {
 
 		var err_msg = "ERROR - you must supply nodeid";
 		console.log(err_msg);
@@ -73,11 +66,26 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	pop_buffer_random(spec.get_random_float, audio_obj);
 
-
 	console.log("nodeid ", nodeid, " just allocated Float32Array of size ", size);
+
+	// ---
+
+	var factor_stretch = spec.factor_stretch; // multiplier from node buffer samples to output samples
+
+
+	if (typeof factor_stretch === "undefined") {
+
+		console.log("factor_stretch was NOT supplied ... using default of 1.0");
+		factor_stretch = 1.0;
+	};
+
+	that.factor_stretch = factor_stretch;
+
+	// ---
 
 	console.log("nodeid ", nodeid);
 	console.log("nodedata ", nodedata);
+	console.log("factor_stretch ", factor_stretch);
 
 	/*
 	var show_genome_node = function() {

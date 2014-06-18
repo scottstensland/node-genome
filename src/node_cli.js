@@ -1,8 +1,8 @@
-#!/usr/bin/env node
+#!/usr/bin/env node 
 
 // var genome_module = require('node-genome');
-
 var genome_module = require('./genome');
+
 var genome = genome_module.init({ name : "Corinde Wiers"});
 
 // var genome = require('./genome').init({ name : "Corinde Stensland"});
@@ -84,12 +84,19 @@ genome.show();
 
 console.log("-----------------");
 
-var given_num_nodes = 5, total_timeslices = 2, max_timeslices_per_chronos = 3;
-
-genome.pop_entire_genome(given_num_nodes, total_timeslices, max_timeslices_per_chronos);
+genome.show_dna();
 
 
 console.log("-----------------");
 
-genome.show_dna();
 
+genome.parse_genome_synth_sound();
+
+
+console.log("-----------------");
+
+/*
+var given_num_nodes = 5, total_timeslices = 2, max_timeslices_per_chronos = 3;
+
+genome.pop_entire_genome(given_num_nodes, total_timeslices, max_timeslices_per_chronos);
+*/
