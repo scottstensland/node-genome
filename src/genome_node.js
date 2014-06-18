@@ -15,7 +15,7 @@ var pop_buffer_random = function(get_random_float, audio_obj) {
 	}
 }
 
-	// spec.get_random_float(-3.5,5.6));
+// ---
 
 
 module.exports.genome_node = function(spec, my) { // functional inheritance Crockford 2008 pg 52

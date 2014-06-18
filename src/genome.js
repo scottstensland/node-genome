@@ -3,8 +3,6 @@
 "use strict";
 
 
-// var shared_utils = require('./shared_utils');
-
 module.exports.init = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 
 	var genome_node_obj = require('./genome_node');
@@ -26,6 +24,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	var network_timeseries = []; // each element contains a list of gene nodes which influence that neighborhood
 
 	var default_edge_weight = 12;
+	var max_index_show_dna = 3;
 
 	var name = spec.name;
 	that.name = name;
@@ -49,7 +48,47 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		console.log("<><><>  <><><>  <><><>");
 	};
 	that.show_genome_node = show_genome_node;
+
+
+	// timeslices : [
+
+	// 	[ {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10} ],
+	// 	[ {nodeid: 4, weight: 10} ],
+	// 	[ {nodeid: 2, weight: 10}, {nodeid: 0, weight: 10} ],
+
+	// ]
 	
+	var show_dna = function () {
+
+		console.log("network_timeseries\t", network_timeseries);
+		console.log(".................");
+
+		for (var chronos in network_timeseries) {
+
+			var curr_timeslice = network_timeseries[chronos];
+
+			// console.log("\n\nchronos ", chronos, " curr_timeslice ", curr_timeslice, "\n\n____");
+
+			for (var whichever_node in curr_timeslice) {
+
+				var nodedata = curr_timeslice[whichever_node];
+
+				console.log("chronos ", chronos, 
+							// " curr_timeslice ", curr_timeslice,
+							" whichever_node ", whichever_node,
+							" nodedata ", nodedata);
+
+				var curr_buffer = network_nodes[whichever_node].buffer;
+
+				for (var index = 0; index < max_index_show_dna; index++) {
+
+					console.log(curr_buffer[index]);
+				}
+
+			}
+		}
+	};
+	that.show_dna = show_dna;
 
 	var show = function(given_label) {
 
@@ -392,6 +431,20 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ---
 
+	var pop_entire_genome = function(given_num_nodes, total_timeslices, max_timeslices_per_chronos) {
+
+		console.log('OOOOOOOOOOOOOOOOOO');
+		console.log('OOOOOOOOOOOOOOOOOO');
+		console.log('OOOOOOOOOOOOOOOOOO');
+		console.log('OOOOOOOOOOOOOOOOOO');
+		console.log("given_num_nodes ", given_num_nodes);
+		console.log("total_timeslices ", total_timeslices);
+		console.log("max_timeslices_per_chronos ", max_timeslices_per_chronos);
+	};
+
+	that.pop_entire_genome = pop_entire_genome;
+
+	/*
 	var get_genome_name = function () {
 
 		return name;
@@ -403,6 +456,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		return spec.saying || "Wiers";
 	};
 	that.says = says;
+	*/
 
 	return that;
 };

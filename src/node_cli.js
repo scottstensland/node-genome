@@ -10,7 +10,7 @@ var genome = genome_module.init({ name : "Corinde Wiers"});
 
 console.log("-----------------");
 // console.log(genome);
-console.log(genome.says());
+// console.log(genome.says());
 
 var add_these = {
 
@@ -40,7 +40,7 @@ var add_these = {
 
 	timeslices : [
 
-		[ {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10} ],
+		[ {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10}, {nodeid: 0, weight: 10}  ],
 		[ {nodeid: 4, weight: 10} ],
 		[ {nodeid: 2, weight: 10}, {nodeid: 0, weight: 10} ],
 
@@ -79,7 +79,17 @@ console.log("-----------------");
 
 genome.show();
 
-console.log("---- genome name ", genome.get_genome_name());
+// console.log("---- genome name ", genome.get_genome_name());
 
 
 console.log("-----------------");
+
+var given_num_nodes = 5, total_timeslices = 2, max_timeslices_per_chronos = 3;
+
+genome.pop_entire_genome(given_num_nodes, total_timeslices, max_timeslices_per_chronos);
+
+
+console.log("-----------------");
+
+genome.show_dna();
+
