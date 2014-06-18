@@ -62,7 +62,8 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 
 	audio_obj.buffer = new Float32Array(size);
 	that.audio_obj = audio_obj;
-	that.buffer = audio_obj.buffer;
+	that.buffer = audio_obj.buffer;	// center of buffer audio curve is at given timeslice so its
+									// curve trails outwards in both direction - both earlier + later in time
 
 	pop_buffer_random(spec.get_random_float, audio_obj);
 

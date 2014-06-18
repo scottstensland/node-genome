@@ -1,7 +1,5 @@
 
-
 "use strict";
-
 
 module.exports.init = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 
@@ -25,7 +23,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	var default_edge_weight = 12;
 	var max_index_show_dna = 3;
-	var factor_genometime_to_clocktime = 2000.7;	// multiplier mapping from count of timeslices in
+												// stens TODO - ignore for now - put in later
+	// var factor_genometime_to_clocktime = 3052.7;	// multiplier mapping from count of timeslices in
 												// network_timeseries to   count of samples in output buffer
 
 	var buffer; // output audio buffer
@@ -38,6 +37,12 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	that.name = name;
 
 	that.get_random_float = shared_utils.get_random_in_range_inclusive_float;
+
+	/*		TODO
+
+				ignore stretch factor for both genome_node and genome timeseries ... for now
+
+	*/
 
 	// ---
 
@@ -304,8 +309,11 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 		console.log("count_num_chronos_in_network_timeseries ", count_num_chronos_in_network_timeseries);
 
+
+		// ... put this after below looping which calculates additional leading and lagging sample counts
 		// convert float into int ... using :    x = ~~(somefloat);
-		max_samples = ~~(count_num_chronos_in_network_timeseries * factor_genometime_to_clocktime);
+		// max_samples = ~~(count_num_chronos_in_network_timeseries * factor_genometime_to_clocktime);
+		max_samples = count_num_chronos_in_network_timeseries;
 
 
 		console.log("max_samples ", max_samples);
@@ -315,35 +323,89 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		console.log("buffer length ", buffer.length);
 
 
+
 		// factor_genometime_to_clocktime <-- mapping between count of entries in network_timeseries
 		//									  and number of samples in final output buffer
 
-		for (var chronos in network_timeseries) {
+		var num_samples_available_prior_to_start_timeseries = 0;	// based on width of each gene curve 
+														// very wide gene curves will widen final output 
 
-			var curr_timeslice = network_timeseries[chronos];
+		for (var curr_chronos in network_timeseries) {
+
+			var curr_timeslice = network_timeseries[curr_chronos];
 
 			// console.log("\n\nchronos ", chronos, " curr_timeslice ", curr_timeslice, "\n\n____");
+
+			console.log("\n\n", curr_chronos, " _________________ ",
+							num_samples_available_prior_to_start_timeseries, "\n\n");
 
 			for (var whichever_node in curr_timeslice) {
 
 				var nodedata = curr_timeslice[whichever_node];
 
-				console.log("chronos ", chronos, 
+				console.log("curr_chronos ", curr_chronos, 
 							// " curr_timeslice ", curr_timeslice,
 							" whichever_node ", whichever_node,
 							" nodedata ", nodedata);
 
 				var curr_buffer = network_nodes[whichever_node].buffer;
 
-				for (var index = 0; index < max_index_show_dna; index++) {
+				// var curr_buffer_size = network_nodes[whichever_node].buffer.length;
+				var curr_buffer_size = curr_buffer.length;
+				console.log("curr_buffer_size ", curr_buffer_size);
 
-					console.log(curr_buffer[index]);
+				// ---
+
+				var offset_sample_mid = ~~(curr_buffer_size / 2);
+				console.log("offset_sample_mid ", offset_sample_mid);
+
+			
+				var curr_buffer_index_minimum = (curr_chronos > offset_sample_mid) ? 0 : 
+									 (offset_sample_mid - curr_chronos);
+				console.log("curr_buffer_index_minimum ", curr_buffer_index_minimum);
+
+
+				// var curr_buffer_index_maximum = (max_samples - 1 > curr_buffer_size) ? 
+				// 									curr_buffer_size : 
+				// 									(offset_sample_mid + (max_samples - curr_chronos) - 1);
+
+
+
+				
+
+				// if (max_samples - 1 - curr_chronos > curr_buffer_size - offset_sample_mid) {
+				var curr_buffer_index_maximum = (max_samples - curr_chronos >= 
+												 curr_buffer_size - offset_sample_mid) ?
+												 curr_buffer_size - 1 :
+												 max_samples - 1 - curr_chronos + offset_sample_mid;
+
+				console.log("curr_buffer_index_maximum ", curr_buffer_index_maximum);
+			
+
+			
+				for (var index = curr_buffer_index_minimum; index <= curr_buffer_index_maximum; index++) {
+
+					console.log(index, curr_buffer[index]);
 				}
+			
+
+				// var curr_factor_stretch = network_nodes[whichever_node].factor_stretch;
+				// console.log("curr_factor_stretch ", curr_factor_stretch);
+
+
+				// var curr_adj_buffer_size = curr_buffer_size * curr_factor_stretch;
+				// console.log("curr_adj_buffer_size ", curr_adj_buffer_size);
+
+
 
 			}
+
+			num_samples_available_prior_to_start_timeseries++;
 		}
 	};
 	that.parse_genome_synth_sound = parse_genome_synth_sound;
+
+	// ---
 
 	return that;
 };

@@ -16,12 +16,14 @@ var add_these = {
 
 	nodes : {
 		// "nodeid": nodedata, 
-        0: { size: 1024 }, 
-        1: { size: 128 }, 
-        2: { size: 128 },
-        3: { size: 128 },
-        4: { size: 512}, 
-        5: { size: 512},
+
+		// for now assure node buffer curve size is ODD it ease centering when folding into output curve
+        0: { size: 3 }, 
+        1: { size: 1 }, 
+        2: { size: 5 },
+        3: { size: 3 },
+        4: { size: 3}, 
+        5: { size: 1},
     },
 
     /*
@@ -41,6 +43,7 @@ var add_these = {
 	timeslices : [
 
 		[ {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10}, {nodeid: 0, weight: 10}  ],
+		[  ], // empty ... no genes here at this timeslice ... will get populated by neighbors
 		[ {nodeid: 4, weight: 10} ],
 		[ {nodeid: 2, weight: 10}, {nodeid: 0, weight: 10} ],
 
