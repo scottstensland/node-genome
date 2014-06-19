@@ -365,6 +365,17 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 				console.log("curr_buffer_index_minimum ", curr_buffer_index_minimum);
 
 
+				console.log("bbbbbbbbbbbbbbbbbbbbbbb ");
+				console.log("curr_chronos ", curr_chronos);
+				console.log("curr_buffer_index_minimum ", curr_buffer_index_minimum);
+				console.log("offset_sample_mid ", offset_sample_mid);
+
+
+				// var curr_buffer_index_minimum_relative = curr_chronos + curr_buffer_index_minimum - offset_sample_mid;
+				// console.log("curr_buffer_index_minimum_relative ", curr_buffer_index_minimum_relative);
+
+
+
 				// var curr_buffer_index_maximum = (max_samples - 1 > curr_buffer_size) ? 
 				// 									curr_buffer_size : 
 				// 									(offset_sample_mid + (max_samples - curr_chronos) - 1);

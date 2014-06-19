@@ -21,7 +21,7 @@ var add_these = {
         0: { size: 3 }, 
         1: { size: 1 }, 
         2: { size: 5 },
-        3: { size: 3 },
+        3: { size: 9 },
         4: { size: 3}, 
         5: { size: 1},
     },
@@ -44,8 +44,21 @@ var add_these = {
 
 		[ {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10}, {nodeid: 0, weight: 10}  ],
 		[  ], // empty ... no genes here at this timeslice ... will get populated by neighbors
-		[ {nodeid: 4, weight: 10} ],
+		[  ],
+		[  ],
+		[ {nodeid: 4, weight: 10} ],		
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+
 		[ {nodeid: 2, weight: 10}, {nodeid: 0, weight: 10} ],
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+
 
 	]
 };
