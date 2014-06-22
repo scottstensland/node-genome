@@ -7,8 +7,12 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	var genome_edge_obj = require('./genome_edge');
 
 
-	var shared_utils_obj = require("shared-utils");
-	var shared_utils = shared_utils_obj.shared_utils();
+	// var shared_utils_obj = require("shared-utils");
+	// var shared_utils = shared_utils_obj.shared_utils();
+
+	
+	var shared_utils = require("shared-utils");
+	// var shared_utils = shared_utils_obj.shared_utils();
 
 	// ---
 
@@ -27,8 +31,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	// var factor_genometime_to_clocktime = 3052.7;	// multiplier mapping from count of timeslices in
 												// network_timeseries to   count of samples in output buffer
 
-	var buffer; // output audio buffer
-	that.buffer = buffer;
+	var genome_buffer; // output audio buffer
+	that.genome_buffer = genome_buffer;
 
 	var max_samples;
 	that.max_samples = max_samples;
@@ -56,9 +60,19 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		console.log("size\t", given_node.size);
 		// console.log("typeof buffer \t", typeof given_node.buffer);
 		console.log("buffer length\t", given_node.buffer.length);
-		console.log("buffer content\t", given_node.buffer[0]);
-		console.log("buffer content\t", given_node.buffer[1]);
-		console.log("buffer content\t", given_node.buffer[2]);
+
+		var max_index_to_show = 3;
+		max_index_to_show = (given_node.size < max_index_to_show) ?
+							 given_node.size : max_index_to_show;
+
+		for (var index = 0; index < max_index_to_show; index++) {
+
+			console.log("buffer content\t", given_node.buffer[index]);
+		}
+
+		// console.log("buffer content\t", given_node.buffer[0]);
+		// console.log("buffer content\t", given_node.buffer[1]);
+		// console.log("buffer content\t", given_node.buffer[2]);
 		console.log("<><><>  <><><>  <><><>");
 	};
 	that.show_genome_node = show_genome_node;
@@ -72,7 +86,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ]
 	
-	var show_dna = function () {
+	var show_genetic_storehouse = function () {
 
 		console.log("network_timeseries\t", network_timeseries);
 		console.log(".................");
@@ -94,6 +108,12 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 				var curr_buffer = network_nodes[whichever_node].buffer;
 
+				var local_max_index_show_dna = max_index_show_dna;
+
+				local_max_index_show_dna = (curr_buffer.length < local_max_index_show_dna) ?
+											curr_buffer.length : local_max_index_show_dna;
+
+
 				for (var index = 0; index < max_index_show_dna; index++) {
 
 					console.log(curr_buffer[index]);
@@ -102,7 +122,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			}
 		}
 	};
-	that.show_dna = show_dna;
+	that.show_genetic_storehouse = show_genetic_storehouse;
 
 	var show = function(given_label) {
 
@@ -301,6 +321,34 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ---
 
+	var get_genome_buffer = function() {
+
+		return genome_buffer;
+	};
+	that.get_genome_buffer = get_genome_buffer;
+
+	// ---
+
+	var show_genome_buffer = function() {
+
+		var max_chronos_to_show_genome_buffer = 9999999;
+
+		max_chronos_to_show_genome_buffer = (genome_buffer.length < max_chronos_to_show_genome_buffer) ?
+											 genome_buffer.length : max_chronos_to_show_genome_buffer;
+
+
+		console.log("genome_buffer.length ", genome_buffer.length);
+		console.log("max_chronos_to_show_genome_buffer ", max_chronos_to_show_genome_buffer);
+
+		for (var index = 0; index < max_chronos_to_show_genome_buffer; index++) {
+
+			console.log(index, genome_buffer[index]);
+		}
+	};
+	that.show_genome_buffer = show_genome_buffer;
+
+	// ---
+
 	var parse_genome_synth_sound = function() {
 
 		console.log("-----TOP parse_genome_synth_sound ");
@@ -318,9 +366,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 		console.log("max_samples ", max_samples);
 
-		buffer = new Float32Array(max_samples);
+		genome_buffer = new Float32Array(max_samples);
 
-		console.log("buffer length ", buffer.length);
+		console.log("genome_buffer length ", genome_buffer.length);
 
 
 
@@ -342,6 +390,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			for (var whichever_node in curr_timeslice) {
 
 				var nodedata = curr_timeslice[whichever_node];
+
+				console.log("\nnode ", whichever_node, " bbbbbbbbbbbbbbbbbbbbbbb --------------\n");
 
 				console.log("curr_chronos ", curr_chronos, 
 							// " curr_timeslice ", curr_timeslice,
@@ -365,7 +415,6 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 				console.log("curr_buffer_index_minimum ", curr_buffer_index_minimum);
 
 
-				console.log("bbbbbbbbbbbbbbbbbbbbbbb ");
 				console.log("curr_chronos ", curr_chronos);
 				console.log("curr_buffer_index_minimum ", curr_buffer_index_minimum);
 				console.log("offset_sample_mid ", offset_sample_mid);
@@ -382,6 +431,10 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 
 
+				var curr_timeline_min = curr_chronos - (offset_sample_mid - curr_buffer_index_minimum);
+
+				console.log("curr_timeline_min ", curr_timeline_min);
+
 				
 
 				// if (max_samples - 1 - curr_chronos > curr_buffer_size - offset_sample_mid) {
@@ -391,22 +444,22 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 												 max_samples - 1 - curr_chronos + offset_sample_mid;
 
 				console.log("curr_buffer_index_maximum ", curr_buffer_index_maximum);
-			
+
+				var curr_timeline_max = parseInt(curr_chronos, 10) + 
+										parseInt(curr_buffer_index_maximum, 10) - 
+										parseInt(offset_sample_mid, 10);
+
+				console.log("curr_timeline_max ", curr_timeline_max);
 
 			
+				var curr_synth_timeslice = curr_timeline_min;
 				for (var index = curr_buffer_index_minimum; index <= curr_buffer_index_maximum; index++) {
 
-					console.log(index, curr_buffer[index]);
+					console.log(index, curr_synth_timeslice, curr_buffer[index]);
+
+					genome_buffer[curr_synth_timeslice] += curr_buffer[index];
+					curr_synth_timeslice++;
 				}
-			
-
-				// var curr_factor_stretch = network_nodes[whichever_node].factor_stretch;
-				// console.log("curr_factor_stretch ", curr_factor_stretch);
-
-
-				// var curr_adj_buffer_size = curr_buffer_size * curr_factor_stretch;
-				// console.log("curr_adj_buffer_size ", curr_adj_buffer_size);
-
 
 
 			}

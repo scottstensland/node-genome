@@ -1,9 +1,23 @@
 #!/usr/bin/env node 
 
+
+var shared_utils = require("shared-utils");
+// var shared_utils = shared_utils_obj.shared_utils();
+// var shared_utils = shared_utils_obj.node_utils();
+
+
+console.log("here is shared_utils ", shared_utils);
+
+
+
 // var genome_module = require('node-genome');
 var genome_module = require('./genome');
 
 var genome = genome_module.init({ name : "Corinde Wiers"});
+
+// var node_utils = require('./node_utils');
+// var node_utils = require("shared-utils");
+
 
 // var genome = require('./genome').init({ name : "Corinde Stensland"});
 
@@ -21,7 +35,7 @@ var add_these = {
         0: { size: 3 }, 
         1: { size: 1 }, 
         2: { size: 5 },
-        3: { size: 9 },
+        3: { size: 5 },
         4: { size: 3}, 
         5: { size: 1},
     },
@@ -42,6 +56,15 @@ var add_these = {
 
 	timeslices : [
 
+
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+		[  ],
+
 		[ {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10}, {nodeid: 0, weight: 10}  ],
 		[  ], // empty ... no genes here at this timeslice ... will get populated by neighbors
 		[  ],
@@ -52,13 +75,10 @@ var add_these = {
 		[  ],
 		[  ],
 
-		[ {nodeid: 2, weight: 10}, {nodeid: 0, weight: 10} ],
+		[ {nodeid: 2, weight: 10}, {nodeid: 0, weight: 10},  {nodeid: 3, weight: 10} ],
 		[  ],
 		[  ],
 		[  ],
-		[  ],
-		[  ],
-
 
 	]
 };
@@ -100,7 +120,7 @@ genome.show();
 
 console.log("-----------------");
 
-genome.show_dna();
+genome.show_genetic_storehouse();
 
 
 console.log("-----------------");
@@ -110,6 +130,27 @@ genome.parse_genome_synth_sound();
 
 
 console.log("-----------------");
+
+genome.show_genome_buffer();
+
+
+console.log("-----------------");
+
+var audio_obj = {};
+
+audio_obj.buffer = genome.get_genome_buffer();
+
+console.log("genome_buffer length ", audio_obj.buffer.length);
+
+var wav_output_filename = "/tmp/genome_synth_audio.wav";
+
+
+// node_utils.write_buffer_to_file(audio_obj, wav_output_filename);
+shared_utils.write_buffer_to_file(audio_obj, wav_output_filename);
+
+
+
+
 
 /*
 var given_num_nodes = 5, total_timeslices = 2, max_timeslices_per_chronos = 3;
