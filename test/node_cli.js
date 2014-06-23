@@ -2,6 +2,7 @@
 
 
 var shared_utils = require("shared-utils");
+// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
 // var shared_utils = shared_utils_obj.shared_utils();
 // var shared_utils = shared_utils_obj.node_utils();
 
@@ -9,11 +10,12 @@ var shared_utils = require("shared-utils");
 console.log("here is shared_utils ", shared_utils);
 
 
-
-var genome_module = require('node-genome');
-// var genome_module = require('../src/genome');
+// var genome_module = require('node-genome');
+var genome_module = require('../src/genome');
 
 var genome = genome_module.init({ name : "Corinde Wiers"});
+
+genome.set_random_seed(117); // uncomment to see repeated random sequence
 
 // var node_utils = require('./node_utils');
 // var node_utils = require("shared-utils");
@@ -148,8 +150,10 @@ var wav_output_filename = "/tmp/genome_synth_audio.wav";
 // node_utils.write_buffer_to_file(audio_obj, wav_output_filename);
 shared_utils.write_buffer_to_file(audio_obj, wav_output_filename);
 
+console.log("wav_output_filename   ", wav_output_filename);
 
 
+console.log("<><><>  <><><>  <><><>   end of processing   <><><>  <><><>  <><><>");
 
 
 /*

@@ -11,7 +11,11 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	// var shared_utils = shared_utils_obj.shared_utils();
 
 	
-	var shared_utils = require("shared-utils");
+	var shared_utils = require("shared-utils"); // normal source from locally installed npm module
+
+	// source directly from sibling file
+	// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
+
 	// var shared_utils = shared_utils_obj.shared_utils();
 
 	// ---
@@ -47,6 +51,14 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 				ignore stretch factor for both genome_node and genome timeseries ... for now
 
 	*/
+
+	// ---
+
+	var set_random_seed = function(given_seed) {
+
+		shared_utils.set_random_seed(given_seed);
+	};
+	that.set_random_seed = set_random_seed;
 
 	// ---
 
