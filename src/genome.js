@@ -11,7 +11,10 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	// var shared_utils = shared_utils_obj.shared_utils();
 
 	
-	var shared_utils = require("shared-utils"); // normal source from locally installed npm module
+	// var shared_utils = require("shared-utils"); // normal source from locally installed npm module
+	var shared_utils = require("/home/stens/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
+	// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
+
 
 	// source directly from sibling file
 	// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");

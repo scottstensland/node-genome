@@ -1,7 +1,8 @@
 #!/usr/bin/env node 
 
 
-var shared_utils = require("shared-utils");
+// var shared_utils = require("shared-utils");
+var shared_utils = require("/home/stens/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
 // var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
 // var shared_utils = shared_utils_obj.shared_utils();
 // var shared_utils = shared_utils_obj.node_utils();
