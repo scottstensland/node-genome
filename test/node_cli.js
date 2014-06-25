@@ -151,7 +151,7 @@ genome.show_genetic_storehouse();
 console.log("--------  parse_genome_synth_sound  ---------");
 
 
-process.exit(9);
+// process.exit(9);
 
 
 genome.parse_genome_synth_sound();
@@ -159,7 +159,7 @@ genome.parse_genome_synth_sound();
 
 console.log("-----------------");
 
-// genome.show_genome_buffer();
+genome.show_genome_buffer();
 
 
 console.log("-----------------");
