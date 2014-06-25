@@ -128,11 +128,11 @@ genome.pop_genome( {
 
 	flavor :  "direct",
 
-	total_genes : 3,
+	total_genes : 1,
 
 	total_gene_types : 1,
 
-	ave_gene_size : 30,
+	ave_gene_size : 100,
 
 	// total_timeslices : 44100,
 	total_timeslices : 100,
