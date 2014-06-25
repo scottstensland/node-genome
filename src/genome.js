@@ -202,15 +202,15 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	var add_node = function(given_new_nodes_json) { // adds to network object
 
-		console.log("yo yo yo");
-		console.log(given_new_nodes_json);
-		console.log("boo boo boo");
+		// console.log("yo yo yo");
+		// console.log(given_new_nodes_json);
+		// console.log("boo boo boo");
 
 
 		var all_new_nodes = given_new_nodes_json["nodes"];
 
-		console.log("all_new_nodes ", all_new_nodes);
-		console.log("iiiiiiiiiiiiiii");
+		// console.log("all_new_nodes ", all_new_nodes);
+		// console.log("iiiiiiiiiiiiiii");
 
 
 		// for (var i = 0; i < Things.length; i++) {
@@ -221,7 +221,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 		for (var curr_nodeid in all_new_nodes) {
 
-			console.log("nodeid ", curr_nodeid);
+			// console.log("nodeid ", curr_nodeid);
 
 			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid,
 																 nodedata: all_new_nodes[curr_nodeid],
@@ -241,13 +241,13 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			network_nodes[curr_nodeid] = curr_genome_node;
 
-			console.log("NAME TOP", network_nodes[curr_nodeid].size, " BOT");
+			// console.log("NAME TOP", network_nodes[curr_nodeid].size, " BOT");
 
 			// network_nodes[curr_nodeid].show_genome_node();
-			show_genome_node(network_nodes[curr_nodeid]);
+			// show_genome_node(network_nodes[curr_nodeid]);
 		}
 
-		console.log("all_new_nodes ------->", all_new_nodes, "<-------");
+		// console.log("all_new_nodes ------->", all_new_nodes, "<-------");
 	};
 	that.add_node = add_node;
 
@@ -257,7 +257,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 		var all_new_timeslices = given_new_timeslices_json["timeslices"];
 
-		console.log("all_new_timeslices ", all_new_timeslices);
+		// console.log("all_new_timeslices ", all_new_timeslices);
 
 		// ---
 
@@ -272,8 +272,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			var curr_value = all_new_timeslices[index];
 
-			console.log("\n\n ---------  new timeslice -------------- ");
-			console.log(index, " curr_value ", curr_value);
+			// console.log("\n\n ---------  new timeslice -------------- ");
+			// console.log(index, " curr_value ", curr_value);
 
 			var curr_timeslice = {};
 
@@ -281,8 +281,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 				var curr_node_in_timeslice = {};
 
-				console.log(index, " curr_value ", curr_value,
-								" curr_nodedata ", curr_value[curr_nodedata]);
+				// console.log(index, " curr_value ", curr_value,
+				// 				" curr_nodedata ", curr_value[curr_nodedata]);
 
 				var nodeid = curr_value[curr_nodedata]["nodeid"];
 
@@ -315,24 +315,150 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			network_timeseries[index] = curr_timeslice;
 		};
 
-		console.log("network_timeseries ", network_timeseries);
+		// console.log("network_timeseries ", network_timeseries);
 	};
 	that.add_timeslices = add_timeslices;
 
 	// ---
 
-	var pop_entire_genome = function(given_num_nodes, total_timeslices, max_timeslices_per_chronos) {
+	var pop_direct_genome = function (	total_genes, 
+										total_gene_types, 
+										total_timeslices,
+										ave_gene_size
+										) {
+
+		console.log("total_nodes ", total_genes);
+		console.log("total_timeslices ", total_gene_types);
+		console.log("total_timeslices ", total_timeslices);
+		console.log("ave_gene_size ", ave_gene_size);
+
+		var gene_density = total_genes / total_timeslices;
+
+		console.log("gene_density ", gene_density);
+		console.log("gene_density ", gene_density);
+		console.log("gene_density ", gene_density);
+		console.log("gene_density ", gene_density);
+
+
+		var default_gene_size = ave_gene_size;
+		var default_gene_weight = 10;
+
+		var nodes = {};
+
+		for (var curr_gene = 0; curr_gene < total_gene_types; curr_gene++) {
+
+			nodes[curr_gene] = { size: default_gene_size};
+		}
+
+		console.log("nodes ", nodes);
+
+		// ---
+
+		var timeslices = [];
+
+		for (var curr_chronos = 0; curr_chronos < total_timeslices; curr_chronos++) {
+
+			timeslices[curr_chronos] = []; // initialize array element
+		};
+		
+
+		for (var curr_gene_instance = 0; curr_gene_instance < total_genes; curr_gene_instance++) {
+
+			// timeslices[curr_chronos] = []; // OK
+
+			// timeslices[curr_chronos] = {nodeid: 1, weight: 10}, {nodeid: 3, weight: 10}, {nodeid: 0, weight: 10} ;
+
+			var location_new_gene_instance = shared_utils.get_random_in_range_inclusive_int(0, total_timeslices - 1);
+			var curr_random_gene = shared_utils.get_random_in_range_inclusive_int(0, total_gene_types - 1);
+
+			console.log("location_new_gene_instance ", location_new_gene_instance);
+
+			timeslices[location_new_gene_instance].push({nodeid : curr_random_gene, weight : default_gene_weight });
+		};
+
+		// timeslices[0] = inner_timeslices;
+		// timeslices = inner_timeslices;
+
+
+		console.log("timeslices ", timeslices);
+
+		// --- now insert parts into output genome object
+
+		var entire_genome = {
+
+			"nodes" : nodes,
+
+			"timeslices" : timeslices,
+		};
+
+		console.log("entire_genome ", entire_genome);
+
+		add_node(entire_genome);
+		add_timeslices(entire_genome);
+
+	};
+	that.pop_direct_genome = pop_direct_genome;
+
+	// ---
+
+	var pop_genome = function(spec) {
+
+		var spec = spec || {
+
+			flavor :  "direct",
+
+			total_genes : 10,
+
+			total_gene_types : 5,
+
+			total_timeslices : 100,
+
+			ave_gene_size : 10,
+		};
+
+		var flavor = spec.flavor || "boohoo";
 
 		console.log('OOOOOOOOOOOOOOOOOO');
 		console.log('OOOOOOOOOOOOOOOOOO');
 		console.log('OOOOOOOOOOOOOOOOOO');
 		console.log('OOOOOOOOOOOOOOOOOO');
-		console.log("given_num_nodes ", given_num_nodes);
-		console.log("total_timeslices ", total_timeslices);
-		console.log("max_timeslices_per_chronos ", max_timeslices_per_chronos);
+		console.log("spec ", spec);
+		console.log("flavor ", spec.flavor);
+
+
+        switch (flavor) {
+
+            case "direct" : {
+
+				console.log("total_nodes ", spec.total_genes);
+				console.log("total_timeslices ", spec.total_gene_types);
+				console.log("total_timeslices ", spec.total_timeslices);
+				console.log("total_timeslices ", spec.ave_gene_size);
+
+				pop_direct_genome(	spec.total_genes,
+									spec.total_gene_types, 
+									spec.total_timeslices,
+									spec.ave_gene_size
+								);
+
+                break;
+            };
+
+            // --- default - catch all if not identifed above
+
+            default :
+
+	            console.log("ERROR - you must define spec property :  flavor in pop_genome");
+	            process.exit(4);
+
+            break;
+        }
+
+
+
 	};
 
-	that.pop_entire_genome = pop_entire_genome;
+	that.pop_genome = pop_genome;
 
 	// ---
 

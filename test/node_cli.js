@@ -86,6 +86,7 @@ var add_these = {
 	]
 };
 
+/*
 console.log("-----------------  add_these ", add_these);
 
 
@@ -93,13 +94,7 @@ console.log("----------------- about to call add_node");
 
 genome.add_node(add_these);
 
-/*
-console.log("----------------- TOP add_edge");
-
-genome.add_edge(add_these);
-
-console.log("----------------- END add_edge");
-*/
+ 
 
 
 console.log("----------------- TOP add_timeslices");
@@ -117,16 +112,46 @@ console.log("-----------------");
 // genome.says();
 
 genome.show();
+*/
 
-// console.log("---- genome name ", genome.get_genome_name());
+
+// ------------------------------------------------------------- //
+// ------------------------------------------------------------- //
+// ------------------------------------------------------------- //
+// ------------------------------------------------------------- //
 
 
-console.log("-----------------");
+console.log("--------  pop_genome  ---------");
+
+// genome.pop_genome();
+genome.pop_genome( {
+
+	flavor :  "direct",
+
+	total_genes : 3,
+
+	total_gene_types : 1,
+
+	ave_gene_size : 30,
+
+	// total_timeslices : 44100,
+	total_timeslices : 100,
+});
+
+
+// ---
+
+
+
+console.log("--------  show_genetic_storehouse  ---------");
 
 genome.show_genetic_storehouse();
 
 
-console.log("-----------------");
+console.log("--------  parse_genome_synth_sound  ---------");
+
+
+process.exit(9);
 
 
 genome.parse_genome_synth_sound();
@@ -134,7 +159,7 @@ genome.parse_genome_synth_sound();
 
 console.log("-----------------");
 
-genome.show_genome_buffer();
+// genome.show_genome_buffer();
 
 
 console.log("-----------------");
