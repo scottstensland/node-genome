@@ -1,6 +1,6 @@
 {
   "name": "node-genome",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "notion of a biologically inspired genome driven by a gene regulatory network",
   "main": "src/genome.js",
   "scripts": {
@@ -15,14 +15,24 @@
     "GRN",
     "genetics"
   ],
-  "licenses": [
-  {
-    "type": "WTFPL – Do What the Fuck You Want to Public License",
-    "url": "http://www.wtfpl.net"
-  }
-],  
   "author": "Scott Stensland <scottstensland@gmail.com> (http://catfoodnation.com/)",
-  "license": "ISC",
+
+  // "license": "ISC",
+  // "licenses": [
+  //   {
+  //     "type": "WTFPL – Do What the Fuck You Want to Public License",
+  //     "url": "http://www.wtfpl.net"
+  //   }
+  // ],
+
+  
+  "licenses": [
+    {
+      "type": "WTFPL – Do What the Fuck You Want to Public License",
+      "url": "http://www.wtfpl.net"
+    }
+  ],  
+
   "bugs": {
     "url": "https://github.com/scottstensland/node-genome/issues"
   },
