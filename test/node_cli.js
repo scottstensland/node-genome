@@ -121,21 +121,89 @@ genome.show();
 // ------------------------------------------------------------- //
 
 
+
+
+// ------------  synthesize an audio buffer  ------------  //
+
+
+SIZE_BUFFER_SOURCE = 256;
+
+
+/*
+
+// SIZE_BUFFER_SOURCE = 16384;
+
+// ---- must be one of : 256, 512, 1024, 2048, 4096, 8192, or 16384
+
+// SIZE_BUFFER_RENDER = 1024; // web audio node buffer size which does actual rendering
+
+// var samples_per_cycle = 64;
+var samples_per_cycle = 256;
+
+var source_obj = {};
+
+var source_obj = shared_utils.pop_audio_buffer(SIZE_BUFFER_SOURCE, samples_per_cycle);
+
+// var max_index = 3;
+var max_index = SIZE_BUFFER_SOURCE;
+
+for (var index = 0; index < max_index; index++) {
+
+    console.log(index, " pop_audio_buffer ", source_obj.buffer[index]);
+}
+
+
+
+
+
+// process.exit(9);
+*/
+
+
+// ------------------------------------------------------------- //
+// ------------------------------------------------------------- //
+// ------------------------------------------------------------- //
+// ------------------------------------------------------------- //
+
+
+
+
+
+
 console.log("--------  pop_genome  ---------");
 
-// genome.pop_genome();
+
 genome.pop_genome( {
 
-	flavor :  "direct",
+	// flavor :  "direct",
+
+	// total_genes : 1,
+
+	// total_gene_types : 1,
+
+	// ave_gene_size : SIZE_BUFFER_SOURCE,
+
+	// // total_timeslices : 44100,
+	// total_timeslices : SIZE_BUFFER_SOURCE,
+
+
+
+	flavor :  "pointed",
 
 	total_genes : 1,
 
 	total_gene_types : 1,
 
-	ave_gene_size : 100,
+	ave_gene_size : SIZE_BUFFER_SOURCE,
 
 	// total_timeslices : 44100,
-	total_timeslices : 100,
+	total_timeslices : SIZE_BUFFER_SOURCE,
+
+	genes_start_time : {
+
+		0 : "middle",
+	}
+
 });
 
 

@@ -401,6 +401,124 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ---
 
+	var pop_pointed_genome = function (	total_genes, 
+										total_gene_types, 
+										total_timeslices,
+										ave_gene_size,
+										genes_start_time
+										) {
+
+		console.log("total_nodes ", total_genes);
+		console.log("total_timeslices ", total_gene_types);
+		console.log("total_timeslices ", total_timeslices);
+		console.log("ave_gene_size ", ave_gene_size);
+		console.log("genes_start_time ", genes_start_time);
+
+
+
+		var default_gene_size = ave_gene_size;
+		var default_gene_weight = 10;
+
+		var nodes = {};
+
+		for (var curr_gene = 0; curr_gene < total_gene_types; curr_gene++) {
+
+			nodes[curr_gene] = { size: default_gene_size};
+		}
+
+		console.log("nodes ", nodes);
+
+		// ---
+
+		var timeslices = [];
+
+		for (var curr_chronos = 0; curr_chronos < total_timeslices; curr_chronos++) {
+
+			timeslices[curr_chronos] = []; // initialize array element
+		};
+		
+		for (var curr_gene_instance = 0; curr_gene_instance < total_genes; curr_gene_instance++) {
+
+			var location_new_gene_instance;
+
+			var curr_random_gene = shared_utils.get_random_in_range_inclusive_int(0, total_gene_types - 1);
+
+			// --- does this gene type live in object : genes_start_time
+
+			if (typeof genes_start_time[curr_random_gene] !== "undefined") {
+
+				console.log("OK cool found curr gene ", curr_random_gene, " inside genes_start_time");
+
+				var value_gene_start_time = genes_start_time[curr_random_gene];
+
+				console.log("AAAAbout to check value_gene_start_time ", value_gene_start_time);
+
+				switch (value_gene_start_time) {
+
+		            case "middle" : {
+
+						console.log("OK now do it value_gene_start_time ", value_gene_start_time);
+
+						location_new_gene_instance = ~~(total_timeslices / 2.0);
+
+						console.log("OK location_new_gene_instance ", location_new_gene_instance);
+
+		                break;
+		            }
+
+		            // --- default - catch all if not identifed above
+
+		            default :
+
+			            console.log("ERROR - invalid value found in genes_start_time : ", value_gene_start_time,
+			            				" for gene ", curr_random_gene);
+			            process.exit(8);
+
+		            break;
+		        }
+
+			} else {
+
+				console.log("boo hoo failed to find ", curr_random_gene, " inside genes_start_time");
+			}
+
+			// var location_new_gene_instance = shared_utils.get_random_in_range_inclusive_int(0, total_timeslices - 1);
+			// var location_new_gene_instance = total_timeslices / 2;
+
+			// location_new_gene_instance = 128;
+
+			console.log("location_new_gene_instance ", location_new_gene_instance);
+
+			timeslices[location_new_gene_instance].push({nodeid : curr_random_gene, weight : default_gene_weight });
+		};
+
+		// timeslices[0] = inner_timeslices;
+		// timeslices = inner_timeslices;
+
+
+		console.log("timeslices ", timeslices);
+
+		// --- now insert parts into output genome object
+
+		var entire_genome = {
+
+			"nodes" : nodes,
+
+			"timeslices" : timeslices,
+		};
+
+		console.log("entire_genome ", entire_genome);
+
+		add_node(entire_genome);
+		add_timeslices(entire_genome);
+
+		// process.exit(8);
+
+	};
+	that.pop_pointed_genome = pop_pointed_genome;
+
+	// ---
+
 	var pop_genome = function(spec) {
 
 		var spec = spec || {
@@ -440,9 +558,28 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 									spec.total_timeslices,
 									spec.ave_gene_size
 								);
+                break;
+            };
+
+            // ---
+
+            case "pointed" : {
+
+				console.log("total_nodes ", spec.total_genes);
+				console.log("total_timeslices ", spec.total_gene_types);
+				console.log("total_timeslices ", spec.total_timeslices);
+				console.log("genes_start_time ", spec.genes_start_time);
+
+				pop_pointed_genome(	spec.total_genes,
+									spec.total_gene_types, 
+									spec.total_timeslices,
+									spec.ave_gene_size,
+									spec.genes_start_time
+								);
 
                 break;
             };
+
 
             // --- default - catch all if not identifed above
 
