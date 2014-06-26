@@ -121,21 +121,17 @@ genome.show();
 // ------------------------------------------------------------- //
 
 
+// ---- must be one of : 256, 512, 1024, 2048, 4096, 8192, or 16384
+// SIZE_BUFFER_RENDER = 1024; // web audio node buffer size which does actual rendering
 
 
 // ------------  synthesize an audio buffer  ------------  //
 
 
 SIZE_BUFFER_SOURCE = 256;
-
-
-/*
-
 // SIZE_BUFFER_SOURCE = 16384;
 
-// ---- must be one of : 256, 512, 1024, 2048, 4096, 8192, or 16384
 
-// SIZE_BUFFER_RENDER = 1024; // web audio node buffer size which does actual rendering
 
 // var samples_per_cycle = 64;
 var samples_per_cycle = 256;
@@ -156,8 +152,7 @@ for (var index = 0; index < max_index; index++) {
 
 
 
-// process.exit(9);
-*/
+process.exit(9);
 
 
 // ------------------------------------------------------------- //
