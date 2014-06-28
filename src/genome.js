@@ -82,7 +82,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 		for (var index = 0; index < max_index_to_show; index++) {
 
-			console.log("buffer content\t", given_node.buffer[index]);
+			// console.log(index, " buffer content\t", given_node.buffer[index]);
+			console.log("%d buffer content ", index, given_node.buffer[index]);
 		}
 
 		// console.log("buffer content\t", given_node.buffer[0]);
@@ -103,8 +104,11 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	
 	var show_genetic_storehouse = function () {
 
-		console.log("network_timeseries\t", network_timeseries);
-		console.log(".................");
+		console.log("\n\nTOP ................. show_genetic_storehouse .................");
+
+		// console.log("FIRST ... network_timeseries\t", network_timeseries);
+
+		console.log("SECOND ... network_nodes");
 
 		for (var chronos in network_timeseries) {
 
@@ -112,16 +116,17 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			// console.log("\n\nchronos ", chronos, " curr_timeslice ", curr_timeslice, "\n\n____");
 
-			for (var whichever_node in curr_timeslice) {
+			for (var curr_gene in curr_timeslice) {
 
-				var nodedata = curr_timeslice[whichever_node];
+				var nodedata = curr_timeslice[curr_gene];
+
+				var curr_buffer = network_nodes[curr_gene].buffer;
 
 				console.log("chronos ", chronos, 
 							// " curr_timeslice ", curr_timeslice,
-							" whichever_node ", whichever_node,
+							" curr_gene ", curr_gene,
+							" buffer.length ", curr_buffer.length,
 							" nodedata ", nodedata);
-
-				var curr_buffer = network_nodes[whichever_node].buffer;
 
 				var local_max_index_show_dna = max_index_show_dna;
 
@@ -131,11 +136,12 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 				for (var index = 0; index < max_index_show_dna; index++) {
 
-					console.log(curr_buffer[index]);
+					console.log("curr_gene ", curr_gene, " buffer index ", index, curr_buffer[index]);
 				}
 
 			}
 		}
+		console.log("BOT ................. show_genetic_storehouse .................\n\n");
 	};
 	that.show_genetic_storehouse = show_genetic_storehouse;
 
@@ -223,6 +229,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 			// console.log("nodeid ", curr_nodeid);
 
+			// populate buffer for this gene with random points of a curve
+
 			var curr_genome_node = genome_node_obj.genome_node({ nodeid: curr_nodeid,
 																 nodedata: all_new_nodes[curr_nodeid],
 																 // nodedata: { size : 2048},
@@ -244,7 +252,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			// console.log("NAME TOP", network_nodes[curr_nodeid].size, " BOT");
 
 			// network_nodes[curr_nodeid].show_genome_node();
-			// show_genome_node(network_nodes[curr_nodeid]);
+
+			console.log("about to show_genome_node ", curr_nodeid);
+			show_genome_node(network_nodes[curr_nodeid]);
 		}
 
 		// console.log("all_new_nodes ------->", all_new_nodes, "<-------");
@@ -407,6 +417,8 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 										ave_gene_size,
 										genes_start_time
 										) {
+
+		// populate curves for each gene where start buffer index is given
 
 		console.log("total_nodes ", total_genes);
 		console.log("total_timeslices ", total_gene_types);
@@ -663,22 +675,22 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			// console.log("\n\nchronos ", chronos, " curr_timeslice ", curr_timeslice, "\n\n____");
 
 			console.log("\n\n", curr_chronos, " _________________ ",
-							num_samples_available_prior_to_start_timeseries, "\n\n");
+							num_samples_available_prior_to_start_timeseries, curr_timeslice, "\n\n");
 
-			for (var whichever_node in curr_timeslice) {
+			for (var curr_gene in curr_timeslice) {
 
-				var nodedata = curr_timeslice[whichever_node];
+				var nodedata = curr_timeslice[curr_gene];
 
-				console.log("\nnode ", whichever_node, " bbbbbbbbbbbbbbbbbbbbbbb --------------\n");
+				console.log("\nnode ", curr_gene, " bbbbbbbbbbbbbbbbbbbbbbb --------------\n");
 
 				console.log("curr_chronos ", curr_chronos, 
 							// " curr_timeslice ", curr_timeslice,
-							" whichever_node ", whichever_node,
+							" curr_gene ", curr_gene,
 							" nodedata ", nodedata);
 
-				var curr_buffer = network_nodes[whichever_node].buffer;
+				var curr_buffer = network_nodes[curr_gene].buffer;
 
-				// var curr_buffer_size = network_nodes[whichever_node].buffer.length;
+				// var curr_buffer_size = network_nodes[curr_gene].buffer.length;
 				var curr_buffer_size = curr_buffer.length;
 				console.log("curr_buffer_size ", curr_buffer_size);
 
