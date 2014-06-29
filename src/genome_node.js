@@ -13,7 +13,7 @@ var pop_buffer_random = function(get_random_float, audio_obj) {
 			console.log(index, audio_obj.buffer[index]);
 		}
 	}
-}
+};
 
 // ---
 
@@ -102,6 +102,16 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 	*/
 
 	// that.get_node_name();
+
+	// ---
+
+	var set_value_buffer = function(given_index, given_value) {
+
+		audio_obj.buffer[given_index] = given_value;
+
+		console.log(given_value, " vvvvvvvv set_value_buffer ... new value ", audio_obj.buffer[given_index]);
+	};
+	that.set_value_buffer = set_value_buffer;
 
 	return that;
 };

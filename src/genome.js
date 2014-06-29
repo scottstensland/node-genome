@@ -29,7 +29,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	my = my || {};
 
 	var network_nodes = []; // initialize fresh network
-	var network_edges = []; // initialize fresh network
+	// var network_edges = []; // initialize fresh network
 	var network_timeseries = []; // each element contains a list of gene nodes which influence that neighborhood
 
 	var default_edge_weight = 12;
@@ -86,12 +86,72 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 			console.log("%d buffer content ", index, given_node.buffer[index]);
 		}
 
-		// console.log("buffer content\t", given_node.buffer[0]);
-		// console.log("buffer content\t", given_node.buffer[1]);
-		// console.log("buffer content\t", given_node.buffer[2]);
 		console.log("<><><>  <><><>  <><><>");
 	};
 	that.show_genome_node = show_genome_node;
+
+	// ---
+
+	var get_size_buffer_this_gene = function(given_gene) {
+
+		return network_nodes[given_gene]["audio_obj"]["buffer"].length;
+	};
+	that.get_size_buffer_this_gene = get_size_buffer_this_gene;
+
+	// ---
+
+	/*
+	var set_value_node_buffer = function(given_gene, given_buffer_index, new_value) {
+
+		console.log("PRE set_value_node_buffer ", given_gene, given_buffer_index, new_value);
+
+		// var curr_node = network_nodes[given_gene];
+
+		// network_nodes[given_gene].audio_obj.buffer[given_buffer_index] = new_value;
+		network_nodes[given_gene]["audio_obj"]["buffer"][given_buffer_index] = new_value;
+
+		console.log("POST set_value_node_buffer ", given_gene, given_buffer_index, new_value,
+					network_nodes[given_gene].audio_obj.buffer[given_buffer_index],
+					network_nodes[given_gene]["audio_obj"]["buffer"][given_buffer_index]);
+
+	};
+	that.set_value_node_buffer = set_value_node_buffer;
+	*/
+
+	var set_value_node_buffer = function(given_gene, given_buffer_index, given_value) {
+
+		// network_nodes[given_gene].audio_obj.buffer[given_buffer_index] = given_value;
+		// network_nodes[given_gene].buffer[given_buffer_index] = given_value;
+
+		var curr_node = network_nodes[given_gene];
+
+			// var set_value_buffer = function(given_index, given_value) {
+
+		curr_node.set_value_buffer(given_buffer_index, given_value);
+
+		// genome_node_obj.genome_node
+
+	};
+	that.set_value_node_buffer = set_value_node_buffer;
+
+	// ---
+
+	var get_value_node_buffer = function(given_gene, given_buffer_index) {
+
+		console.log("TOP get_value_node_buffer");
+
+		console.log("get_value_node_buffer ", given_gene, given_buffer_index);
+
+		// var curr_node = network_nodes[given_gene];
+
+		console.log(" buffer value ", network_nodes[given_gene].audio_obj.buffer[given_buffer_index]);
+
+		// return curr_node.audio_obj.buffer[given_buffer_index];
+		return network_nodes[given_gene].audio_obj.buffer[given_buffer_index];
+	};
+	that.get_value_node_buffer = get_value_node_buffer;
+
+	// ---
 
 
 	// timeslices : [
