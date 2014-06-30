@@ -58,6 +58,7 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 	var size = nodedata.size;
 	that.size = size;
 
+
 	var audio_obj = {};
 
 	audio_obj.buffer = new Float32Array(size);
@@ -66,6 +67,22 @@ module.exports.genome_node = function(spec, my) { // functional inheritance Croc
 									// curve trails outwards in both direction - both earlier + later in time
 
 	pop_buffer_random(spec.get_random_float, audio_obj);
+
+	/*
+	that.buffer = new Float32Array(size);
+
+	for (var index = 0; index < size; index++) {
+
+		that.buffer[index] = spec.get_random_float(-1.0, 1.0);
+
+		if (index < 5) {
+
+			console.log(index, that.buffer[index]);
+		}
+	}
+	*/
+
+	// ---
 
 	console.log("nodeid ", nodeid, " just allocated Float32Array of size ", size);
 

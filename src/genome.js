@@ -4,7 +4,7 @@
 module.exports.init = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 
 	var genome_node_obj = require('./genome_node');
-	var genome_edge_obj = require('./genome_edge');
+	// var genome_edge_obj = require('./genome_edge');
 
 
 	// var shared_utils_obj = require("shared-utils");
@@ -92,13 +92,17 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ---
 
+	/*
 	var get_size_buffer_this_gene = function(given_gene) {
 
 		return network_nodes[given_gene]["audio_obj"]["buffer"].length;
 	};
 	that.get_size_buffer_this_gene = get_size_buffer_this_gene;
+	*/
 
 	// ---
+
+	// var put_it_here;
 
 	/*
 	var set_value_node_buffer = function(given_gene, given_buffer_index, new_value) {
@@ -123,33 +127,38 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		// network_nodes[given_gene].audio_obj.buffer[given_buffer_index] = given_value;
 		// network_nodes[given_gene].buffer[given_buffer_index] = given_value;
 
-		var curr_node = network_nodes[given_gene];
+		// var curr_node = network_nodes[given_gene];
+		// curr_node.set_value_buffer(given_buffer_index, given_value);
 
-			// var set_value_buffer = function(given_index, given_value) {
 
-		curr_node.set_value_buffer(given_buffer_index, given_value);
+		// network_nodes[given_gene].audio_obj.buffer[given_buffer_index] = given_value;
 
-		// genome_node_obj.genome_node
+		// put_it_here = given_value;
 
+		network_nodes[given_gene].buffer[given_buffer_index] = given_value;
 	};
 	that.set_value_node_buffer = set_value_node_buffer;
 
+
 	// ---
 
+	
 	var get_value_node_buffer = function(given_gene, given_buffer_index) {
 
-		console.log("TOP get_value_node_buffer");
-
-		console.log("get_value_node_buffer ", given_gene, given_buffer_index);
-
-		// var curr_node = network_nodes[given_gene];
-
-		console.log(" buffer value ", network_nodes[given_gene].audio_obj.buffer[given_buffer_index]);
+		// console.log("TOP get_value_node_buffer");
+		// console.log("get_value_node_buffer ", given_gene, given_buffer_index);
+		// console.log(" buffer value ", network_nodes[given_gene].audio_obj.buffer[given_buffer_index]);
 
 		// return curr_node.audio_obj.buffer[given_buffer_index];
-		return network_nodes[given_gene].audio_obj.buffer[given_buffer_index];
+		// return network_nodes[given_gene].audio_obj.buffer[given_buffer_index];
+
+		// return put_it_here;
+
+		return network_nodes[given_gene].buffer[given_buffer_index];
+
 	};
 	that.get_value_node_buffer = get_value_node_buffer;
+	
 
 	// ---
 
@@ -304,6 +313,46 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 				console.log(err_msg);
 				process.exit(4);
 			}
+
+			// ---
+/*
+			if (typeof all_new_nodes[curr_nodeid].size === "undefined") {
+
+				var err_msg = "ERROR - you must supply spec.nodedata.size";
+				console.log(err_msg);
+				process.exit(3);
+			};
+
+			var size = all_new_nodes[curr_nodeid].size;
+			
+			console.log("NAME size size size ", size);
+
+
+			// curr_genome_node.buffer = new Float32Array(size);
+			curr_genome_node.buffer = new Float64Array(size);
+
+			
+
+
+			var curr_value_float;
+			for (var index = 0; index < size; index++) {
+
+				curr_value_float = that.get_random_float(-1.0, 1.0);
+
+				console.log("PREEEEE  NAME curr_value_float ", curr_value_float);
+
+				curr_genome_node.buffer[index] = curr_value_float;
+
+				console.log("POSTTTTT NAME curr_genome_node.buffer[index] ", curr_genome_node.buffer[index]);
+
+				if (index < 5) {
+
+					console.log(index, curr_genome_node.buffer[index]);
+				}
+			}
+*/
+			// ---
+
 
 			// console.log("NAME TOP", curr_genome_node.get_node_name(), " BOT");
 
@@ -681,6 +730,9 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	var show_genome_buffer = function() {
 
+		console.log("TTT _________ show_genome_buffer _________");
+
+
 		var max_chronos_to_show_genome_buffer = 9999999;
 
 		max_chronos_to_show_genome_buffer = (genome_buffer.length < max_chronos_to_show_genome_buffer) ?
@@ -693,7 +745,10 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		for (var index = 0; index < max_chronos_to_show_genome_buffer; index++) {
 
 			console.log(index, genome_buffer[index]);
-		}
+		};
+
+		console.log("BBB _________ show_genome_buffer _________");
+
 	};
 	that.show_genome_buffer = show_genome_buffer;
 
@@ -818,6 +873,17 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 		}
 	};
 	that.parse_genome_synth_sound = parse_genome_synth_sound;
+
+	// ---
+
+
+	var set_value_buffer = function(given_index, given_value) {
+
+		audio_obj.buffer[given_index] = given_value;
+
+		console.log(given_value, " vvvvvvvv set_value_buffer ... new value ", audio_obj.buffer[given_index]);
+	};
+	that.set_value_buffer = set_value_buffer;
 
 	// ---
 
