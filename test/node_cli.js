@@ -15,7 +15,6 @@ var environment_mode = process.argv[2] || "dev";
 
 console.warn("running code in environment_mode: ", environment_mode);
 
-
 var shared_utils;
 
 switch (environment_mode) {
@@ -33,19 +32,8 @@ switch (environment_mode) {
         break;
 };
 
-
-
 // ------------------------------------------------ //
 
-// var shared_utils = require("shared-utils");
-// var shared_utils = require(resolvePath("~/Dropbox/Documents/code/github/shared-utils/src/node_utils.js"));
-// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
-// var shared_utils = shared_utils_obj.shared_utils();
-// var shared_utils = shared_utils_obj.node_utils();
-// console.log("here is shared_utils ", shared_utils);
-
-
-// var genome_module = require('node-genome');
 var genome_module = require('../src/genome');
 
 var genome = genome_module.init({ name : "Corinde Wiers"});

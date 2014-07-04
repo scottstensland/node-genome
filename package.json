@@ -1,6 +1,6 @@
 {
   "name": "node-genome",
-  "version": "0.2.24",
+  "version": "0.2.25",
   "description": "notion of a biologically inspired genome driven by a gene regulatory network",
   "main": "src/genome.js",
   "scripts": {
