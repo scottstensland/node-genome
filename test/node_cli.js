@@ -25,11 +25,11 @@ switch (environment_mode) {
         break;
 
     case "dev":
-        shared_utils  = require(resolvePath("shared-utils"));
+        shared_utils  = require("shared-utils");
         break;
 
     default :
-        shared_utils  = require(resolvePath("shared-utils"));
+        shared_utils  = require("shared-utils");
         break;
 };
 
