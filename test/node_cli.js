@@ -1,14 +1,48 @@
 #!/usr/bin/env node 
 
+var path = require('path');
+
+function resolvePath(str) {
+  if (str.substr(0, 2) === '~/') {
+    str = (process.env.HOME || process.env.HOMEPATH || process.env.HOMEDIR || process.cwd()) + str.substr(1);
+  }
+  return path.resolve(str);
+}
+
+// ---
+
+var environment_mode = process.argv[2] || "dev";
+
+console.warn("running code in environment_mode: ", environment_mode);
+
+
+var shared_utils;
+
+switch (environment_mode) {
+
+    case "nubia": // repository owner tinkering mode - ignore it and use nothing which defaults to dev which is OK
+        shared_utils  = require(resolvePath("~/Dropbox/Documents/code/github/shared-utils/src/node_utils"));
+        break;
+
+    case "dev":
+        shared_utils  = require(resolvePath("shared-utils"));
+        break;
+
+    default :
+        shared_utils  = require(resolvePath("shared-utils"));
+        break;
+};
+
+
+
+// ------------------------------------------------ //
 
 // var shared_utils = require("shared-utils");
-var shared_utils = require("/home/stens/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
+// var shared_utils = require(resolvePath("~/Dropbox/Documents/code/github/shared-utils/src/node_utils.js"));
 // var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
 // var shared_utils = shared_utils_obj.shared_utils();
 // var shared_utils = shared_utils_obj.node_utils();
-
-
-console.log("here is shared_utils ", shared_utils);
+// console.log("here is shared_utils ", shared_utils);
 
 
 // var genome_module = require('node-genome');

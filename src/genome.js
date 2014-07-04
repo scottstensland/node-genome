@@ -3,6 +3,15 @@
 
 module.exports.init = function(spec, my) { // functional inheritance Crockford 2008 pg 52
 
+	var path = require('path');
+
+	function resolvePath(str) {
+	  if (str.substr(0, 2) === '~/') {
+	    str = (process.env.HOME || process.env.HOMEPATH || process.env.HOMEDIR || process.cwd()) + str.substr(1);
+	  }
+	  return path.resolve(str);
+	}
+
 	var genome_node_obj = require('./genome_node');
 	// var genome_edge_obj = require('./genome_edge');
 
@@ -12,7 +21,7 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	
 	// var shared_utils = require("shared-utils"); // normal source from locally installed npm module
-	var shared_utils = require("/home/stens/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
+	var shared_utils = require(resolvePath("~/Dropbox/Documents/code/github/shared-utils/src/node_utils.js"));
 	// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
 
 
