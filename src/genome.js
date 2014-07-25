@@ -194,9 +194,13 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 
 	// ]
 	
-	var show_genetic_storehouse = function () {
+	var show_genetic_storehouse = function (given_max_index_show_dna) {
 
 		console.log("\n\nTOP ................. show_genetic_storehouse .................");
+
+		var meso_max_index_show_dna = given_max_index_show_dna || max_index_show_dna;
+
+		console.log("meso_max_index_show_dna ", meso_max_index_show_dna);
 
 		// console.log("FIRST ... network_timeseries\t", network_timeseries);
 
@@ -220,17 +224,17 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 							" buffer.length ", curr_buffer.length,
 							" nodedata ", nodedata);
 
-				var local_max_index_show_dna = max_index_show_dna;
+				var local_max_index_show_dna = meso_max_index_show_dna;
 
 				local_max_index_show_dna = (curr_buffer.length < local_max_index_show_dna) ?
 											curr_buffer.length : local_max_index_show_dna;
 
+				console.log("local_max_index_show_dna ", local_max_index_show_dna);
 
-				for (var index = 0; index < max_index_show_dna; index++) {
+				for (var index = 0; index < local_max_index_show_dna; index++) {
 
 					console.log("curr_gene ", curr_gene, " buffer index ", index, curr_buffer[index]);
 				}
-
 			}
 		}
 		console.log("BOT ................. show_genetic_storehouse .................\n\n");
