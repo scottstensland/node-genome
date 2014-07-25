@@ -13,29 +13,45 @@ module.exports.init = function(spec, my) { // functional inheritance Crockford 2
 	}
 
 	var genome_node_obj = require('./genome_node');
-	// var genome_edge_obj = require('./genome_edge');
-
-
-	// var shared_utils_obj = require("shared-utils");
-	// var shared_utils = shared_utils_obj.shared_utils();
-
-	
-	// var shared_utils = require("shared-utils"); // normal source from locally installed npm module
-	var shared_utils = require(resolvePath("~/Dropbox/Documents/code/github/shared-utils/src/node_utils.js"));
-	// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
-
-
-	// source directly from sibling file
-	// var shared_utils = require("/home/scott/Dropbox/Documents/code/github/shared-utils/src/node_utils.js");
-
-	// var shared_utils = shared_utils_obj.shared_utils();
-
-	// ---
 
 	var that = {},
 		spec = spec || { name : "Corinde Wiers"};
 
+	var environment_mode = spec.environment_mode || "dev";
+
 	my = my || {};
+
+	// ---
+
+	var shared_utils;
+
+	switch (environment_mode) {
+
+	    case "nubia": // repository owner tinkering mode - ignore it and use nothing which defaults to dev which is OK
+
+	        var local_github_parent = process.env.GITHUB_REPO_PARENT;
+
+	        if ( ! local_github_parent ) {
+
+	            console.error("ERROR - do not use environment_mode value of :", environment_mode, 
+	                            " instead use dev or leave blank");
+	            process.exit(8);
+	        }
+
+	        console.log("environment_mode is ", environment_mode, " so pulling in sibling dir source code");
+	        shared_utils   = require(resolvePath(local_github_parent + "shared-utils/src/node_utils"));
+	        break;
+
+	    case "dev":
+	        shared_utils  = require("shared-utils");
+	        break;
+
+	    default :
+	        shared_utils  = require("shared-utils");
+	        break;
+	};
+
+	// ---
 
 	var network_nodes = []; // initialize fresh network
 	// var network_edges = []; // initialize fresh network
