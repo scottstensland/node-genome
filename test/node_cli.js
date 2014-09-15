@@ -11,56 +11,17 @@ function resolvePath(str) {
 
 // ---
 
-var environment_mode = process.argv[2] || "dev";
-
-console.warn("running code in environment_mode: ", environment_mode);
-
-var shared_utils;
-
-var audio_util_obj;
-var audio_utils;
-
-switch (environment_mode) {
-
-    case "nubia": // repository owner tinkering mode - ignore it and use nothing which defaults to dev which is OK
-
-        var local_github_parent = process.env.GITHUB_REPO_PARENT;
-
-        if ( ! local_github_parent ) {
-
-            console.error("ERROR - do not use environment_mode value of :", environment_mode, 
-                            " instead use dev or leave blank");
-            process.exit(8);
-        }
-
-        console.log("environment_mode is ", environment_mode, " so pulling in sibling dir source code");
-        shared_utils   = require(resolvePath(local_github_parent + "shared-utils/src/node_utils"));
-        audio_util_obj = require(resolvePath(local_github_parent + "audio-utils/src/audio_utils"));
-        break;
-
-    case "dev":
-        shared_utils  = require("shared-utils");
-        audio_util_obj = require("audio-utils");    // get these modules from global install
-        break;
-
-    default :
-        shared_utils  = require("shared-utils");
-        audio_util_obj = require("audio-utils");    // get these modules from global install
-        break;
-};
-
-
-// ------------------------------------------------ //
-
-audio_utils = audio_util_obj.audio_utils(environment_mode);
+var audio_utils = require("audio-utils");
+var shared_utils  = require("shared-utils");
 
 console.log("audio_utils ", audio_utils);
 
-// ---
+// ------------------------------------------------ //
+
 
 var genome_module = require('../src/genome');
 
-var genome = genome_module.init({ name : "Corinde Wiers", environment_mode : environment_mode});
+var genome = genome_module.init({ name : "Corinde Wiers" });
 
 genome.set_random_seed(117); // uncomment to see repeated random sequence
 

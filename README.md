@@ -11,7 +11,7 @@ Available at https://github.com/scottstensland/node-genome
 
 ## Usage
 
-var genome = require(node-genome),
+var genome = require("node-genome"),
 	hello_corinde = genome.hello_corinde;
 
 console.log("here is genome in action : ", hello_corinde());
